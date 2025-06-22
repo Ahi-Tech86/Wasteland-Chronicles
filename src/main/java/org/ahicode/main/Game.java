@@ -1,5 +1,7 @@
 package org.ahicode.main;
 
+import org.ahicode.entities.Player;
+
 import java.awt.*;
 
 public class Game implements Runnable {
@@ -10,7 +12,11 @@ public class Game implements Runnable {
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
 
+    private final Player player;
+
     public Game() {
+        player = new Player(100, 200);
+
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
         gameThread = new Thread(this);
@@ -18,11 +24,11 @@ public class Game implements Runnable {
     }
 
     public void update() {
-
+        player.update();
     }
 
-    public void render(Graphics2D graphics) {
-
+    public void render(Graphics2D graphics2D) {
+        player.render(graphics2D);
     }
 
     @Override
@@ -65,5 +71,9 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

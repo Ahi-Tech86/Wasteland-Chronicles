@@ -1,6 +1,6 @@
 package org.ahicode.main;
 
-import org.ahicode.KeyboardHandler;
+import org.ahicode.input.KeyboardInputHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class GamePanel extends JPanel {
 
         setPreferredSize(new Dimension(1024, 576));
         setDoubleBuffered(true);
-        addKeyListener(new KeyboardHandler());
+        addKeyListener(new KeyboardInputHandler(this));
         setFocusable(true);
     }
 
@@ -22,5 +22,9 @@ public class GamePanel extends JPanel {
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
         game.render(graphics2D);
+    }
+
+    public Game getGame() {
+        return game;
     }
 }
