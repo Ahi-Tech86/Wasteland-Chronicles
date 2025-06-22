@@ -1,16 +1,19 @@
 package org.ahicode.entities;
 
-import org.ahicode.core.GameObject2D;
+import org.ahicode.base.Direction;
+import org.ahicode.base.GameObject2D;
 
 public abstract class GameEntity extends GameObject2D {
 
     private boolean left, right, down, up;
+    protected Direction currentDirection;
     private boolean attacking = false;
     private boolean moving = false;
     protected int speed;
 
     public GameEntity(int x, int y) {
         super(x, y);
+        currentDirection = Direction.DOWN;
     }
 
     public boolean isLeft() {

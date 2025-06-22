@@ -1,6 +1,6 @@
 package org.ahicode.entities;
 
-public enum EntityState {
+public enum Action {
     IDLE,
     RUNNING,
     ATTACK;

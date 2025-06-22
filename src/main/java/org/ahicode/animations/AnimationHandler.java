@@ -1,4 +1,6 @@
-package org.ahicode.entities;
+package org.ahicode.animations;
+
+import org.ahicode.entities.GameEntity;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -6,20 +8,20 @@ import java.util.Map;
 
 public class AnimationHandler {
 
-    private final Map<EntityState, BufferedImage[]> fullAnimations;
+    private final Map<AnimationKey, BufferedImage[]> fullAnimations;
     private BufferedImage[] currentAnimation;
     private final GameEntity gameEntity;
-    private EntityState currentAction;
+    private AnimationKey currentKey;
     private final int animSpeed;
     private int animTick;
     private int animIndex;
 
-    public AnimationHandler(GameEntity entity, Map<EntityState, BufferedImage[]> fullAnimations, EntityState initialAction, int animSpeed) {
+    public AnimationHandler(GameEntity entity, Map<AnimationKey, BufferedImage[]> fullAnimations, AnimationKey initialKey, int animSpeed) {
         this.gameEntity = entity;
         this.fullAnimations = fullAnimations;
-        this.currentAction = initialAction;
+        this.currentKey = initialKey;
         this.animSpeed = animSpeed;
-        this.currentAnimation = fullAnimations.get(initialAction);
+        this.currentAnimation = fullAnimations.get(initialKey);
     }
 
     public void update() {
@@ -42,11 +44,11 @@ public class AnimationHandler {
         }
     }
 
-    public void setAction(EntityState action) {
-        if (currentAction == action) return;
+    public void setAction(AnimationKey key) {
+        if (currentKey.equals(key)) return;
         resetAnimTick();
-        currentAction = action;
-        currentAnimation = fullAnimations.get(action);
+        currentKey = key;
+        currentAnimation = fullAnimations.get(key);
     }
 
     private void resetAnimTick() {
