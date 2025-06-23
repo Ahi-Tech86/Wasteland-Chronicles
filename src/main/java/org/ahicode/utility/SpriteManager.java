@@ -30,4 +30,9 @@ public class SpriteManager {
 
         return frames;
     }
+
+    public static BufferedImage extractSprite(String path, int x, int y, int width, int height) {
+        BufferedImage spriteSheet = getSpriteImage(path);
+        return spriteSheet.getSubimage(x, y, width, height);
+    }
 }

@@ -1,4 +1,4 @@
-package org.ahicode.base;
+package org.ahicode.entities;
 
 public enum Direction {
     UP,

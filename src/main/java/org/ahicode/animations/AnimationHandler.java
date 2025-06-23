@@ -55,4 +55,8 @@ public class AnimationHandler {
         animTick = 0;
         animIndex = 0;
     }
+
+    public AnimationKey getCurrentKey() {
+        return currentKey;
+    }
 }

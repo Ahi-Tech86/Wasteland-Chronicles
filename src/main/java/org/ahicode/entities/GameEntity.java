@@ -1,6 +1,5 @@
 package org.ahicode.entities;
 
-import org.ahicode.base.Direction;
 import org.ahicode.base.GameObject2D;
 
 public abstract class GameEntity extends GameObject2D {

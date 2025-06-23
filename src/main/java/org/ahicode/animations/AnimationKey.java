@@ -1,6 +1,6 @@
 package org.ahicode.animations;
 
-import org.ahicode.base.Direction;
+import org.ahicode.entities.Direction;
 import org.ahicode.entities.Action;
 
 import java.util.Objects;
@@ -12,6 +12,10 @@ public class AnimationKey {
     public AnimationKey(Action action, Direction direction) {
         this.action = action;
         this.direction = direction;
+    }
+
+    public Action getAction() {
+        return action;
     }
 
     @Override
