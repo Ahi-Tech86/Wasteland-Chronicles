@@ -14,7 +14,7 @@ public class AnimationLoader {
         Map<AnimationKey, BufferedImage[]> animations = new HashMap<>();
         String characterBaseFramesPath = "/character/PlayerBase.png";
 
-        BufferedImage[] idleLeftFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleLeftFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -24,7 +24,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] idleRightFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleRightFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -34,7 +34,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] idleUpFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleUpFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -44,7 +44,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] idleDownFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleDownFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -54,7 +54,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] runLeftFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runLeftFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -64,7 +64,7 @@ public class AnimationLoader {
                 4
         );
 
-        BufferedImage[] runRightFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runRightFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -74,7 +74,7 @@ public class AnimationLoader {
                 4
         );
 
-        BufferedImage[] runUpFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runUpFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -84,7 +84,7 @@ public class AnimationLoader {
                 4
         );
 
-        BufferedImage[] runDownFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runDownFrames = SpriteManager.loadFramesFromSheet(
                 characterBaseFramesPath,
                 16,
                 16,
@@ -112,7 +112,7 @@ public class AnimationLoader {
         String characterHandsFramesPath = "/character/PlayerHands.png";
         String shotgunHandsFramesPath = "/character/Shotgun.png";
 
-        BufferedImage[] idleLeftFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleLeftFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -122,7 +122,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] idleRightFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleRightFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -132,7 +132,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] idleUpFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleUpFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -142,7 +142,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] idleDownFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] idleDownFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -152,7 +152,7 @@ public class AnimationLoader {
                 3
         );
 
-        BufferedImage[] runLeftFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runLeftFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -162,7 +162,7 @@ public class AnimationLoader {
                 4
         );
 
-        BufferedImage[] runRightFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runRightFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -172,7 +172,7 @@ public class AnimationLoader {
                 4
         );
 
-        BufferedImage[] runUpFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runUpFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -182,7 +182,7 @@ public class AnimationLoader {
                 4
         );
 
-        BufferedImage[] runDownFrames = SpriteManager.loadFramesFromSpriteSheet(
+        BufferedImage[] runDownFrames = SpriteManager.loadFramesFromSheet(
                 characterHandsFramesPath,
                 16,
                 16,
@@ -193,7 +193,7 @@ public class AnimationLoader {
         );
 
         BufferedImage[] shotgunHoldFrames = new BufferedImage[1];
-        shotgunHoldFrames[0] = SpriteManager.extractSprite(shotgunHandsFramesPath, 144, 16, 32, 16);
+        shotgunHoldFrames[0] = SpriteManager.extractFromSheet(shotgunHandsFramesPath, 144, 16, 32, 16);
 
         animations.put(new AnimationKey(Action.IDLE, Direction.LEFT), idleLeftFrames);
         animations.put(new AnimationKey(Action.IDLE, Direction.RIGHT), idleRightFrames);
