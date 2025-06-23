@@ -1,6 +1,7 @@
 package org.ahicode.application;
 
 import org.ahicode.entities.Player;
+import org.ahicode.tile.TileManager;
 
 import java.awt.*;
 
@@ -9,13 +10,21 @@ public class Game implements Runnable {
     private final GameWindow gameWindow;
     private final GamePanel gamePanel;
     private final Thread gameThread;
+    private final TileManager tileManager;
     private final int FPS_SET = 120;
     private final int UPS_SET = 200;
+
+    private final int originalTileSize = 16;
+    private final int scale = 4;
+    private final int tileSize = originalTileSize * scale;
+    private final int maxScreenCol = 16;
+    private final int maxScreenRow = 9;
 
     private final Player player;
 
     public Game() {
         player = new Player(100, 200);
+        tileManager = new TileManager(this);
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -28,6 +37,7 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics2D graphics2D) {
+        tileManager.render(graphics2D);
         player.render(graphics2D);
     }
 
@@ -75,5 +85,17 @@ public class Game implements Runnable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public int getTileSize() {
+        return tileSize;
+    }
+
+    public int getMaxScreenCol() {
+        return maxScreenCol;
+    }
+
+    public int getMaxScreenRow() {
+        return maxScreenRow;
     }
 }
