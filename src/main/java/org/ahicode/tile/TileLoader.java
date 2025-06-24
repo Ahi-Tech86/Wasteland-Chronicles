@@ -28,8 +28,7 @@ public class TileLoader {
 
                 BufferedImage image = ImageIO.read(is);
                 if (image != null) {
-                    Tile tile = new Tile();
-                    tile.setImage(image);
+                    Tile tile = new Tile(image);
                     tiles.add(tile);
                 }
             } catch (IOException e) {

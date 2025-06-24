@@ -1,41 +1,53 @@
 package org.ahicode.tile;
 
-import org.ahicode.application.Game;
-
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TileManager {
 
-    private Game game;
-    private Tile[] tiles;
-    private int[][] tileMapNum;
+    private final int tileSize, maxScreenCol, maxScreenRow;
+    private List<TilePosition> tilePositions;
+    private final int[][] tileMapNum;
+    private final Tile[] tiles;
 
-    public TileManager(Game game) {
-        this.game = game;
+    public TileManager(int tileSize, int maxScreenCol, int maxScreenRow) {
+        this.maxScreenCol = maxScreenCol;
+        this.maxScreenRow = maxScreenRow;
+        this.tileSize = tileSize;
 
         tiles = TileLoader.loadTileset();
-        tileMapNum = TileLoader.loadMap(game.getMaxScreenCol(), game.getMaxScreenRow());
+        tileMapNum = TileLoader.loadMap(maxScreenCol, maxScreenRow);
+        calculateTilePositions();
     }
 
     public void render(Graphics2D graphics2D) {
-        int col = 0;
-        int row = 0;
+        for (TilePosition position : tilePositions) {
+            int tileNum = tileMapNum[position.getCol()][position.getRow()];
+            graphics2D.drawImage(
+                    tiles[tileNum].getImage(),
+                    position.getX(),
+                    position.getY(),
+                    tileSize,
+                    tileSize,
+                    null
+            );
+        }
+    }
+
+    private void calculateTilePositions() {
+        tilePositions = new ArrayList<>();
         int x = 0;
         int y = 0;
 
-        while (col < game.getMaxScreenCol() && row < game.getMaxScreenRow()) {
-            int tileNum = tileMapNum[col][row];
-
-            graphics2D.drawImage(tiles[tileNum].getImage(), x, y, game.getTileSize(), game.getTileSize(), null);
-            col++;
-            x += game.getTileSize();
-
-            if (col == game.getMaxScreenCol()) {
-                col = 0;
-                x = 0;
-                row++;
-                y += game.getTileSize();
+        for (int row = 0; row < maxScreenRow; row++) {
+            for (int col = 0; col < maxScreenCol; col++) {
+                tilePositions.add(new TilePosition(col, row, x, y));
+                x += tileSize;
             }
+
+            x = 0;
+            y += tileSize;
         }
     }
 }

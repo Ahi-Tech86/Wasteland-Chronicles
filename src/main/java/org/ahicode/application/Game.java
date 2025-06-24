@@ -24,7 +24,7 @@ public class Game implements Runnable {
 
     public Game() {
         player = new Player(100, 200);
-        tileManager = new TileManager(this);
+        tileManager = new TileManager(tileSize, maxScreenCol, maxScreenRow);
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -85,17 +85,5 @@ public class Game implements Runnable {
 
     public Player getPlayer() {
         return player;
-    }
-
-    public int getTileSize() {
-        return tileSize;
-    }
-
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
     }
 }
