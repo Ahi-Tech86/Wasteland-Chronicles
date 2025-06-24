@@ -10,8 +10,8 @@ public abstract class GameEntity extends GameObject2D {
     private boolean moving = false;
     protected int speed;
 
-    public GameEntity(int x, int y) {
-        super(x, y);
+    public GameEntity(int worldX, int worldY) {
+        super(worldX, worldY);
         currentDirection = Direction.DOWN;
     }
 

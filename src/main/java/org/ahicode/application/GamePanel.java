@@ -13,14 +13,18 @@ public class GamePanel extends JPanel {
         this.game = game;
 
         setPreferredSize(new Dimension(1024, 576));
-        setDoubleBuffered(true);
         addKeyListener(new KeyboardInputHandler(this));
         setFocusable(true);
+        setDoubleBuffered(true);
     }
 
     public void paintComponent(Graphics graphics) {
         super.paintComponent(graphics);
         Graphics2D graphics2D = (Graphics2D) graphics;
+
+        graphics2D.setColor(Color.WHITE);
+        graphics2D.fillRect(0, 0, getWidth(), getHeight());
+
         game.render(graphics2D);
     }
 

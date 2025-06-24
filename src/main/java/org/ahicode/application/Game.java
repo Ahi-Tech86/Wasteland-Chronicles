@@ -20,11 +20,15 @@ public class Game implements Runnable {
     private final int maxScreenCol = 16;
     private final int maxScreenRow = 9;
 
+    // WORLD SETTINGS
+    private final int maxWorldCol = 50;
+    private final int maxWorldRow = 50;
+
     private final Player player;
 
     public Game() {
-        player = new Player(100, 200);
-        tileManager = new TileManager(tileSize, maxScreenCol, maxScreenRow);
+        player = new Player(100, 200, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
+        tileManager = new TileManager(tileSize, maxWorldCol, maxWorldRow);
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -37,7 +41,7 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics2D graphics2D) {
-        tileManager.render(graphics2D);
+        tileManager.draw(graphics2D, getPlayer());
         player.render(graphics2D);
     }
 

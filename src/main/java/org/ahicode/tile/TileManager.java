@@ -1,53 +1,65 @@
 package org.ahicode.tile;
 
+import org.ahicode.entities.Player;
+
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class TileManager {
 
-    private final int tileSize, maxScreenCol, maxScreenRow;
-    private List<TilePosition> tilePositions;
+    private final int tileSize, maxWorldCol, maxWorldRow;
     private final int[][] tileMapNum;
     private final Tile[] tiles;
 
-    public TileManager(int tileSize, int maxScreenCol, int maxScreenRow) {
-        this.maxScreenCol = maxScreenCol;
-        this.maxScreenRow = maxScreenRow;
+    public TileManager(int tileSize, int maxWorldCol, int maxWorldRow) {
+        this.maxWorldCol = maxWorldCol;
+        this.maxWorldRow = maxWorldRow;
         this.tileSize = tileSize;
 
         tiles = TileLoader.loadTileset();
-        tileMapNum = TileLoader.loadMap(maxScreenCol, maxScreenRow);
-        calculateTilePositions();
+        tileMapNum = TileLoader.loadMap(maxWorldCol, maxWorldRow);
     }
 
-    public void render(Graphics2D graphics2D) {
-        for (TilePosition position : tilePositions) {
-            int tileNum = tileMapNum[position.getCol()][position.getRow()];
-            graphics2D.drawImage(
-                    tiles[tileNum].getImage(),
-                    position.getX(),
-                    position.getY(),
-                    tileSize,
-                    tileSize,
-                    null
-            );
-        }
-    }
+    public void draw(Graphics2D graphics2D, Player player) {
+        // Getting player coordinates and screen borders
+        int playerWorldX = player.getWorldX();
+        int playerWorldY = player.getWorldY();
+        int playerScreenX = player.getScreenX();
+        int playerScreenY = player.getScreenY();
 
-    private void calculateTilePositions() {
-        tilePositions = new ArrayList<>();
-        int x = 0;
-        int y = 0;
+        // Calculate borders of visible area (in world coordinates)
+        // We add/subtract 'tileSize' to ensure tiles at the edges are fully rendered
+        // and prevent empty gaps when the camera moves near map borders.
+        int leftBoundary = playerWorldX - playerScreenX - tileSize;
+        int rightBoundary = playerWorldX + playerScreenX + tileSize;
+        int topBoundary = playerWorldY - playerScreenY - tileSize;
+        int bottomBoundary = playerWorldY + playerScreenY + tileSize;
 
-        for (int row = 0; row < maxScreenRow; row++) {
-            for (int col = 0; col < maxScreenCol; col++) {
-                tilePositions.add(new TilePosition(col, row, x, y));
-                x += tileSize;
+        // Converting borders values in tiles index's
+        int startCol = Math.max(0, leftBoundary / tileSize);
+        int endCol = Math.min(maxWorldCol - 1, rightBoundary / tileSize);
+        int startRow = Math.max(0, topBoundary / tileSize);
+        int endRow = Math.min(maxWorldRow - 1, bottomBoundary / tileSize);
+
+        // Rendering only visible tiles
+        for (int row = startRow; row <= endRow; row++) {
+            for (int col = startCol; col <= endCol; col++) {
+                int tileNum = tileMapNum[col][row];
+
+                // Calculating screen coordinates
+                int worldX = col * tileSize;
+                int worldY = row * tileSize;
+                int screenX = worldX - playerWorldX + playerScreenX;
+                int screenY = worldY - playerWorldY + playerScreenY;
+
+                graphics2D.drawImage(
+                        tiles[tileNum].getImage(),
+                        screenX,
+                        screenY,
+                        tileSize,
+                        tileSize,
+                        null
+                );
             }
-
-            x = 0;
-            y += tileSize;
         }
     }
 }
