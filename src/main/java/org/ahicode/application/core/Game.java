@@ -4,6 +4,8 @@ import org.ahicode.application.rendering.GamePanel;
 import org.ahicode.application.rendering.GameWindow;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
+import org.ahicode.physics.CollisionCheckable;
+import org.ahicode.physics.CollisionChecker;
 import org.ahicode.tile.TileManager;
 
 import java.awt.*;
@@ -27,13 +29,16 @@ public class Game implements Runnable {
     private final int maxWorldCol = 50;
     private final int maxWorldRow = 50;
 
+    private final CollisionCheckable collisionCheckable;
     private final Player player;
     private final Camera camera;
 
     public Game() {
-        player = new Player(100, 200, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
-        camera = new Camera(tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
         tileManager = new TileManager(tileSize, maxWorldCol, maxWorldRow);
+        collisionCheckable = new CollisionChecker(tileSize, tileManager);
+
+        player = new Player(100, 200, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize, collisionCheckable);
+        camera = new Camera(tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);

@@ -63,4 +63,12 @@ public class TileManager {
             }
         }
     }
+
+    public int[][] getTileMapNum() {
+        return tileMapNum;
+    }
+
+    public Tile[] getTiles() {
+        return tiles;
+    }
 }

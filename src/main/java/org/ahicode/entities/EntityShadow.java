@@ -16,7 +16,7 @@ public class EntityShadow {
     public EntityShadow() {
         this.image = SpriteManager.getImage("/character/CharacterShadowHalfAlpha.png");
         this.height = 20;
-        this.width = 40;
+        this.width = 48;
         this.offsetX = 8;
         this.offsetY = 48;
     }

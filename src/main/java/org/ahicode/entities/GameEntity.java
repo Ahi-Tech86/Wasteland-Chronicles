@@ -3,13 +3,17 @@ package org.ahicode.entities;
 import org.ahicode.core.GameObject2D;
 import org.ahicode.entities.enums.Direction;
 
+import java.awt.*;
+
 public abstract class GameEntity extends GameObject2D {
 
     private boolean left, right, down, up;
-    protected Direction currentDirection;
+    private Direction currentDirection;
+    private boolean collisionOn = false;
     private boolean attacking = false;
     private boolean moving = false;
-    protected int speed;
+    private Rectangle hitbox;
+    private int speed;
 
     public GameEntity(int worldX, int worldY) {
         super(worldX, worldY);
@@ -62,5 +66,37 @@ public abstract class GameEntity extends GameObject2D {
 
     public void setMoving(boolean moving) {
         this.moving = moving;
+    }
+
+    public Rectangle getHitbox() {
+        return hitbox;
+    }
+
+    public void setHitbox(Rectangle hitbox) {
+        this.hitbox = hitbox;
+    }
+
+    public Direction getCurrentDirection() {
+        return currentDirection;
+    }
+
+    public void setCurrentDirection(Direction currentDirection) {
+        this.currentDirection = currentDirection;
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(int speed) {
+        this.speed = speed;
+    }
+
+    public boolean isCollisionOn() {
+        return collisionOn;
+    }
+
+    public void setCollisionOn(boolean collisionOn) {
+        this.collisionOn = collisionOn;
     }
 }
