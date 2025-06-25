@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class AnimationLoader {
+public class GraphicsLoader {
     private static final String characterBase = "/character/PlayerBase.png";
     private static final String characterHands = "/character/PlayerHands.png";
     private static final String shotgunHands = "/character/Shotgun.png";

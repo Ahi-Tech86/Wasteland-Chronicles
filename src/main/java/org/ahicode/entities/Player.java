@@ -11,6 +11,7 @@ import static org.ahicode.entities.enums.Direction.*;
 public class Player extends GameEntity {
 
     private final PlayerAnimations animations;
+    private final EntityShadow entityShadow;
     private boolean hasWeapon;
 
     public Player(int x, int y, int screenWidth, int screenHeight, int tileSize) {
@@ -18,6 +19,7 @@ public class Player extends GameEntity {
         speed = 2;
         hasWeapon = false;
 
+        entityShadow = new EntityShadow();
         animations = new PlayerAnimations(this);
     }
 
@@ -28,6 +30,7 @@ public class Player extends GameEntity {
     }
 
     public void render(Graphics2D graphics2D, int screenX, int screenY) {
+        entityShadow.render(graphics2D, screenX, screenY);
         animations.render(graphics2D, screenX, screenY, 64, 64);
     }
 

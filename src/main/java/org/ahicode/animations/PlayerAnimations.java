@@ -12,8 +12,8 @@ public class PlayerAnimations {
     private final AnimationHandler hands;
 
     public PlayerAnimations(Player player) {
-        this.body = new AnimationHandler(player, AnimationLoader.loadPlayerBodyAnimations(), new AnimationKey(Action.IDLE, Direction.DOWN), 25);
-        this.hands = new AnimationHandler(player, AnimationLoader.loadPlayerHandsAnimations(), new AnimationKey(Action.IDLE, Direction.DOWN), 25);
+        this.body = new AnimationHandler(player, GraphicsLoader.loadPlayerBodyAnimations(), new AnimationKey(Action.IDLE, Direction.DOWN), 25);
+        this.hands = new AnimationHandler(player, GraphicsLoader.loadPlayerHandsAnimations(), new AnimationKey(Action.IDLE, Direction.DOWN), 25);
     }
 
     public void update() {
