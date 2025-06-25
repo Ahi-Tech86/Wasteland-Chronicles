@@ -2,27 +2,18 @@ package org.ahicode.entities;
 
 public class Camera {
 
-    private int screenWidth, screenHeight;
-    private int mapWidth, mapHeight;
-    private int offsetX, offsetY;
+    private final int screenX, screenY;
 
-    public Camera(int screenWidth, int screenHeight, int mapWidth, int mapHeight) {
-        this.screenWidth = screenWidth;
-        this.screenHeight = screenHeight;
-        this.mapWidth = mapWidth;
-        this.mapHeight = mapHeight;
+    public Camera(int screenWidth, int screenHeight, int tileSize) {
+        this.screenX = screenWidth / 2 - (tileSize / 2);
+        this.screenY = screenHeight / 2 - (tileSize / 2);
     }
 
-    public void update(int targetX, int targetY) {
-        offsetX = targetX - screenWidth / 2;
-        offsetY = targetY - screenHeight / 2;
+    public int getScreenX() {
+        return screenX;
     }
 
-    public int getOffsetX() {
-        return offsetX;
-    }
-
-    public int getOffsetY() {
-        return offsetY;
+    public int getScreenY() {
+        return screenY;
     }
 }

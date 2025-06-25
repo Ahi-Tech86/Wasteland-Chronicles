@@ -11,15 +11,11 @@ public class Player extends GameEntity {
 
     private final PlayerAnimations animations;
     private boolean hasWeapon;
-    private final int screenX, screenY;
 
     public Player(int x, int y, int screenWidth, int screenHeight, int tileSize) {
         super(x, y);
         speed = 2;
         hasWeapon = false;
-
-        screenX = screenWidth / 2 - (tileSize / 2);
-        screenY = screenHeight / 2 - (tileSize / 2);
 
         animations = new PlayerAnimations(this);
     }
@@ -30,7 +26,7 @@ public class Player extends GameEntity {
         setAnimation();
     }
 
-    public void render(Graphics2D graphics2D) {
+    public void render(Graphics2D graphics2D, int screenX, int screenY) {
         animations.render(graphics2D, screenX, screenY, 64, 64);
     }
 
@@ -66,13 +62,5 @@ public class Player extends GameEntity {
 
     public void setHasWeapon(boolean hasWeapon) {
         this.hasWeapon = hasWeapon;
-    }
-
-    public int getScreenX() {
-        return screenX;
-    }
-
-    public int getScreenY() {
-        return screenY;
     }
 }

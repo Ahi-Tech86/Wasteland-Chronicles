@@ -1,5 +1,6 @@
 package org.ahicode.application;
 
+import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 import org.ahicode.tile.TileManager;
 
@@ -25,9 +26,11 @@ public class Game implements Runnable {
     private final int maxWorldRow = 50;
 
     private final Player player;
+    private final Camera camera;
 
     public Game() {
         player = new Player(100, 200, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
+        camera = new Camera(tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
         tileManager = new TileManager(tileSize, maxWorldCol, maxWorldRow);
 
         gamePanel = new GamePanel(this);
@@ -41,8 +44,8 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics2D graphics2D) {
-        tileManager.draw(graphics2D, getPlayer());
-        player.render(graphics2D);
+        tileManager.draw(graphics2D, getPlayer(), getCamera());
+        player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
     }
 
     @Override
@@ -89,5 +92,9 @@ public class Game implements Runnable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public Camera getCamera() {
+        return camera;
     }
 }

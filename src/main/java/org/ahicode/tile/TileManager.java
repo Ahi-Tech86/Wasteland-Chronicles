@@ -1,5 +1,6 @@
 package org.ahicode.tile;
 
+import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 
 import java.awt.*;
@@ -19,12 +20,12 @@ public class TileManager {
         tileMapNum = TileLoader.loadMap(maxWorldCol, maxWorldRow);
     }
 
-    public void draw(Graphics2D graphics2D, Player player) {
+    public void draw(Graphics2D graphics2D, Player player, Camera camera) {
         // Getting player coordinates and screen borders
         int playerWorldX = player.getWorldX();
         int playerWorldY = player.getWorldY();
-        int playerScreenX = player.getScreenX();
-        int playerScreenY = player.getScreenY();
+        int playerScreenX = camera.getScreenX();
+        int playerScreenY = camera.getScreenY();
 
         // Calculate borders of visible area (in world coordinates)
         // We add/subtract 'tileSize' to ensure tiles at the edges are fully rendered
