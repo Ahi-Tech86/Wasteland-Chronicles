@@ -1,6 +1,7 @@
-package org.ahicode.application;
+package org.ahicode.application.rendering;
 
-import org.ahicode.input.KeyboardInputHandler;
+import org.ahicode.application.core.Game;
+import org.ahicode.application.input.KeyboardInputHandler;
 
 import javax.swing.*;
 import java.awt.*;

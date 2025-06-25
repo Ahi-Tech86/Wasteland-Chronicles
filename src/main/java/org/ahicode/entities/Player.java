@@ -1,11 +1,12 @@
 package org.ahicode.entities;
 
 import org.ahicode.animations.PlayerAnimations;
+import org.ahicode.entities.enums.Action;
 
 import java.awt.*;
 
-import static org.ahicode.entities.Action.*;
-import static org.ahicode.entities.Direction.*;
+import static org.ahicode.entities.enums.Action.*;
+import static org.ahicode.entities.enums.Direction.*;
 
 public class Player extends GameEntity {
 

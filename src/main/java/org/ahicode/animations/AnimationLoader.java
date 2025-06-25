@@ -1,7 +1,7 @@
 package org.ahicode.animations;
 
-import org.ahicode.entities.Direction;
-import org.ahicode.entities.Action;
+import org.ahicode.entities.enums.Direction;
+import org.ahicode.entities.enums.Action;
 import org.ahicode.utility.SpriteManager;
 
 import java.awt.image.BufferedImage;

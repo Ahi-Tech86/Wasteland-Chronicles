@@ -1,4 +1,4 @@
-package org.ahicode.base;
+package org.ahicode.core;
 
 public abstract class GameObject2D {
     private int worldX, worldY;

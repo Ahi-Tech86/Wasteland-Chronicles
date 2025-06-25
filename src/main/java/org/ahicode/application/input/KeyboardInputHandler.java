@@ -1,6 +1,6 @@
-package org.ahicode.input;
+package org.ahicode.application.input;
 
-import org.ahicode.application.GamePanel;
+import org.ahicode.application.rendering.GamePanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;

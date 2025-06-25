@@ -1,5 +1,7 @@
-package org.ahicode.application;
+package org.ahicode.application.core;
 
+import org.ahicode.application.rendering.GamePanel;
+import org.ahicode.application.rendering.GameWindow;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 import org.ahicode.tile.TileManager;

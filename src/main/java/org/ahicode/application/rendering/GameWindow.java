@@ -1,4 +1,4 @@
-package org.ahicode.application;
+package org.ahicode.application.rendering;
 
 import javax.swing.*;
 
