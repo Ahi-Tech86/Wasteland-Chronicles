@@ -1,11 +1,11 @@
 package org.ahicode.entities;
 
-import org.ahicode.core.GameObject2D;
+import org.ahicode.core.WorldPositionedObject;
 import org.ahicode.entities.enums.Direction;
 
 import java.awt.*;
 
-public abstract class GameEntity extends GameObject2D {
+public abstract class GameEntity extends WorldPositionedObject {
 
     private boolean left, right, down, up;
     private Direction currentDirection;

@@ -1,9 +1,9 @@
 package org.ahicode.core;
 
-public abstract class GameObject2D {
+public abstract class WorldPositionedObject {
     private int worldX, worldY;
 
-    public GameObject2D(int worldX, int worldY) {
+    public WorldPositionedObject(int worldX, int worldY) {
         this.worldX = worldX;
         this.worldY = worldY;
     }

@@ -4,6 +4,8 @@ import org.ahicode.application.rendering.GamePanel;
 import org.ahicode.application.rendering.GameWindow;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
+import org.ahicode.objects.GameObject;
+import org.ahicode.objects.ObjectsSetter;
 import org.ahicode.physics.CollisionCheckable;
 import org.ahicode.physics.CollisionChecker;
 import org.ahicode.tile.TileManager;
@@ -29,16 +31,20 @@ public class Game implements Runnable {
     private final int maxWorldCol = 50;
     private final int maxWorldRow = 50;
 
+    private final GameObject[] gameObjectsList;
     private final CollisionCheckable collisionCheckable;
+    private final ObjectsSetter objectsSetter;
     private final Player player;
     private final Camera camera;
 
     public Game() {
         tileManager = new TileManager(tileSize, maxWorldCol, maxWorldRow);
         collisionCheckable = new CollisionChecker(tileSize, tileManager);
+        objectsSetter = new ObjectsSetter(tileSize);
 
-        player = new Player(100, 200, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize, collisionCheckable);
+        player = new Player(1 * tileSize, 5 * tileSize, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize, collisionCheckable);
         camera = new Camera(tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
+        gameObjectsList = objectsSetter.setObject();
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -52,6 +58,13 @@ public class Game implements Runnable {
 
     public void render(Graphics2D graphics2D) {
         tileManager.draw(graphics2D, getPlayer(), getCamera());
+
+        for (GameObject object : gameObjectsList) {
+            if (object != null) {
+                object.render(graphics2D, player, camera);
+            }
+        }
+
         player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
     }
 
