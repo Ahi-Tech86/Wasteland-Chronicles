@@ -1,0 +1,67 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "Level1.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "Level1.tmx": {
+            "scale": 2,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 172.25,
+                "y": 163.75
+            }
+        },
+        "fance_parts.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 1
+        },
+        "full_basic_objects.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 4
+        },
+        "grass-tileset.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 4
+        },
+        "objectsTilesSheet.tsx": {
+            "scaleInDock": 2,
+            "scaleInEditor": 3
+        },
+        "treesSpriteSheet.tsx": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        }
+    },
+    "last.imagePath": "C:/dev/projects/Wasteland Chronicles/src/main/resources/objects",
+    "map.height": 50,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 50,
+    "openFiles": [
+        "grass-tileset.tsx",
+        "Level1.tmx",
+        "treesSpriteSheet.tsx",
+        "full_basic_objects.tsx"
+    ],
+    "project": "Level1.tiled-project",
+    "property.type": "string",
+    "recentFiles": [
+        "grass-tileset.tsx",
+        "full_basic_objects.tsx",
+        "treesSpriteSheet.tsx",
+        "Level1.tmx",
+        "objectsTilesSheet.tsx",
+        "fance_parts.tsx"
+    ],
+    "tileset.lastUsedFormat": "tsx",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
