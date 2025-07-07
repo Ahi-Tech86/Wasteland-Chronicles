@@ -11,8 +11,8 @@ public class ObjectsSetter {
     public GameObject[] setObject() {
         GameObject[] result = new GameObject[10];
 
-        result[0] = new Tent(tileSize * 1, tileSize * 1, tileSize);
-        result[0].setCollision(true);
+        //result[0] = new Tent(tileSize * 1, tileSize * 1, tileSize);
+        //result[0].setCollision(true);
 
         return result;
     }

@@ -52,24 +52,44 @@ public class Player extends GameEntity {
         int originalWorldX = getWorldX();
         int originalWorldY = getWorldY();
 
+        int dirX = 0;
+        int dirY = 0;
+
         if (isLeft() && !isRight()) {
-            setWorldX(getWorldX() - getSpeed());
+            dirX = -1;
             setMoving(true);
             setCurrentDirection(LEFT);
         } else if (isRight() && !isLeft()) {
-            setWorldX(getWorldX() + getSpeed());
+            dirX = 1;
             setMoving(true);
             setCurrentDirection(RIGHT);
         }
 
         if (isUp() && !isDown()) {
-            setWorldY(getWorldY() - getSpeed());
+            dirY = -1;
             setMoving(true);
             setCurrentDirection(UP);
         } else if (isDown() && !isUp()) {
-            setWorldY(getWorldY() + getSpeed());
+            dirY = 1;
             setMoving(true);
             setCurrentDirection(DOWN);
+        }
+
+        if (dirX != 0 || dirY != 0) {
+            int speed = getSpeed();
+            int moveX = dirX * speed;
+            int moveY = dirY * speed;
+
+            if (dirX != 0 && dirY != 0) {
+                moveX = (dirX * speed * 707) / 1000;
+                moveY = (dirY * speed * 707) / 1000;
+
+                if (moveX == 0) moveX = dirX;
+                if (moveY == 0) moveY = dirY;
+            }
+
+            setWorldX(getWorldX() + moveX);
+            setWorldY(getWorldY() + moveY);
         }
 
         collisionCheckable.checkCollision(this);
