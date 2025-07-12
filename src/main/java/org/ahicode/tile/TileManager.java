@@ -17,7 +17,6 @@ public class TileManager {
         this.tileSize = tileSize;
 
         tiles = TileLoader.loadTilesetFromTsx();
-        //tileMapNum = TileLoader.loadMap(maxWorldCol, maxWorldRow);
         tileMapNum = TileLoader.loadMapFromTmx(maxWorldCol, maxWorldRow);
     }
 
