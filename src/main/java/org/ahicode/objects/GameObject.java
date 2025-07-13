@@ -12,20 +12,23 @@ public class GameObject extends WorldPositionedObject {
     private boolean collision = false;
     private BufferedImage image;
     private final int tileSize;
+    private final int gid;
     private String name;
     private int spriteWidth;
     private int spriteHeight;
 
 
-    public GameObject(int worldX, int worldY, int tileSize) {
+    public GameObject(int worldX, int worldY, int tileSize, int gid) {
         super(worldX, worldY);
         this.tileSize = tileSize;
+        this.gid = gid;
     }
 
     public void render(Graphics2D graphics2D, Player player, Camera camera) {
         int screenX = getWorldX() - player.getWorldX() + camera.getScreenX();
         int screenY = getWorldY() - player.getWorldY() + camera.getScreenY();
-        graphics2D.drawImage(image, screenX, screenY, getSpriteWidth(), getSpriteHeight(), null);
+
+        graphics2D.drawImage(image, screenX, screenY, getSpriteWidth() * 4, getSpriteHeight() * 4, null);
     }
 
     public boolean isCollision() {

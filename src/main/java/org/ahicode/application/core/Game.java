@@ -44,7 +44,7 @@ public class Game implements Runnable {
 
         player = new Player(1 * tileSize, 5 * tileSize, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize, collisionCheckable);
         camera = new Camera(tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
-        gameObjectsList = objectsSetter.setObject();
+        gameObjectsList = objectsSetter.getLevelObjects();
 
         gamePanel = new GamePanel(this);
         gameWindow = new GameWindow(gamePanel);
@@ -59,13 +59,13 @@ public class Game implements Runnable {
     public void render(Graphics2D graphics2D) {
         tileManager.draw(graphics2D, getPlayer(), getCamera());
 
+        player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
+
         for (GameObject object : gameObjectsList) {
             if (object != null) {
                 object.render(graphics2D, player, camera);
             }
         }
-
-        player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
     }
 
     @Override
