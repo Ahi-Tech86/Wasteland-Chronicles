@@ -1,5 +1,6 @@
 package org.ahicode.physics;
 
+import org.ahicode.application.core.GameSettings;
 import org.ahicode.entities.GameEntity;
 import org.ahicode.entities.enums.Direction;
 import org.ahicode.tile.TileManager;
@@ -9,8 +10,8 @@ public class CollisionChecker implements CollisionCheckable {
     private final TileManager tileManager;
     private final int tileSize;
 
-    public CollisionChecker(int tileSize, TileManager tileManager) {
-        this.tileSize = tileSize;
+    public CollisionChecker(TileManager tileManager) {
+        this.tileSize = GameSettings.TILE_SIZE;
         this.tileManager = tileManager;
     }
 

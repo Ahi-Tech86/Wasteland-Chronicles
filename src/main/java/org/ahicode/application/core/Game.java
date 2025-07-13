@@ -6,11 +6,14 @@ import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 import org.ahicode.objects.GameObject;
 import org.ahicode.objects.ObjectsSetter;
+import org.ahicode.objects.RenderingOrder;
 import org.ahicode.physics.CollisionCheckable;
 import org.ahicode.physics.CollisionChecker;
 import org.ahicode.tile.TileManager;
 
 import java.awt.*;
+
+import static org.ahicode.application.core.GameSettings.*;
 
 public class Game implements Runnable {
 
@@ -18,8 +21,6 @@ public class Game implements Runnable {
     private final GamePanel gamePanel;
     private final Thread gameThread;
     private final TileManager tileManager;
-    private final int FPS_SET = 120;
-    private final int UPS_SET = 200;
 
     private final int originalTileSize = 16;
     private final int scale = 4;
@@ -38,12 +39,12 @@ public class Game implements Runnable {
     private final Camera camera;
 
     public Game() {
-        tileManager = new TileManager(tileSize, maxWorldCol, maxWorldRow);
-        collisionCheckable = new CollisionChecker(tileSize, tileManager);
-        objectsSetter = new ObjectsSetter(tileSize);
+        tileManager = new TileManager(maxWorldCol, maxWorldRow);
+        collisionCheckable = new CollisionChecker(tileManager);
+        objectsSetter = new ObjectsSetter();
 
-        player = new Player(1 * tileSize, 5 * tileSize, tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize, collisionCheckable);
-        camera = new Camera(tileSize * maxScreenCol, tileSize * maxScreenRow, tileSize);
+        player = new Player(1 * TILE_SIZE, 5 * TILE_SIZE, collisionCheckable);
+        camera = new Camera(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW);
         gameObjectsList = objectsSetter.getLevelObjects();
 
         gamePanel = new GamePanel(this);
@@ -60,7 +61,7 @@ public class Game implements Runnable {
         tileManager.draw(graphics2D, getPlayer(), getCamera());
 
         for (GameObject object : gameObjectsList) {
-            if (object != null && (!object.getName().equals("bush") || !object.getName().equals("bushType1") || !object.getName().equals("bushType2") || !object.getName().equals("bushType3") || !object.getName().equals("bushType4"))) {
+            if (object != null && object.getOrder().equals(RenderingOrder.BACKGROUND)) {
                 object.render(graphics2D, player, camera);
             }
         }
@@ -68,7 +69,7 @@ public class Game implements Runnable {
         player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
 
         for (GameObject object : gameObjectsList) {
-            if (object.getName().equals("bush") || object.getName().equals("bushType1") || object.getName().equals("bushType2") || object.getName().equals("bushType3") || object.getName().equals("bushType4")) {
+            if (object != null && object.getOrder().equals(RenderingOrder.FOREGROUND)) {
                 object.render(graphics2D, player, camera);
             }
         }
@@ -76,8 +77,8 @@ public class Game implements Runnable {
 
     @Override
     public void run() {
-        double timePerFrame = 1_000_000_000.0 / FPS_SET;
-        double timePerUpdate = 1_000_000_000.0 / UPS_SET;
+        double timePerFrame = 1_000_000_000.0 / GameSettings.FPS_SET;
+        double timePerUpdate = 1_000_000_000.0 / GameSettings.UPS_SET;
 
         long previousTime = System.nanoTime();
 

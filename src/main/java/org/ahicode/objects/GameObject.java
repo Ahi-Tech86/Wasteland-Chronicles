@@ -1,5 +1,6 @@
 package org.ahicode.objects;
 
+import org.ahicode.application.core.GameSettings;
 import org.ahicode.core.WorldPositionedObject;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
@@ -11,24 +12,22 @@ public class GameObject extends WorldPositionedObject {
 
     private boolean collision = false;
     private BufferedImage image;
-    private final int tileSize;
-    private final int gid;
     private String name;
     private int spriteWidth;
     private int spriteHeight;
+    private final RenderingOrder order;
 
 
-    public GameObject(int worldX, int worldY, int tileSize, int gid) {
+    public GameObject(int worldX, int worldY, RenderingOrder order) {
         super(worldX, worldY);
-        this.tileSize = tileSize;
-        this.gid = gid;
+        this.order = order;
     }
 
     public void render(Graphics2D graphics2D, Player player, Camera camera) {
         int screenX = getWorldX() - player.getWorldX() + camera.getScreenX();
         int screenY = getWorldY() - player.getWorldY() + camera.getScreenY();
 
-        graphics2D.drawImage(image, screenX, screenY, getSpriteWidth() * 4, getSpriteHeight() * 4, null);
+        graphics2D.drawImage(image, screenX, screenY, getSpriteWidth() * GameSettings.SCALE, getSpriteHeight() * GameSettings.SCALE, null);
     }
 
     public boolean isCollision() {
@@ -69,5 +68,9 @@ public class GameObject extends WorldPositionedObject {
 
     public void setSpriteHeight(int spriteHeight) {
         this.spriteHeight = spriteHeight;
+    }
+
+    public RenderingOrder getOrder() {
+        return order;
     }
 }

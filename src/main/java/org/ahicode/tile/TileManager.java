@@ -1,5 +1,6 @@
 package org.ahicode.tile;
 
+import org.ahicode.application.core.GameSettings;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 
@@ -11,10 +12,10 @@ public class TileManager {
     private final int[][] tileMapNum;
     private final Tile[] tiles;
 
-    public TileManager(int tileSize, int maxWorldCol, int maxWorldRow) {
+    public TileManager(int maxWorldCol, int maxWorldRow) {
         this.maxWorldCol = maxWorldCol;
         this.maxWorldRow = maxWorldRow;
-        this.tileSize = tileSize;
+        this.tileSize = GameSettings.TILE_SIZE;
 
         tiles = TileLoader.loadTilesetFromTsx();
         tileMapNum = TileLoader.loadMapFromTmx(maxWorldCol, maxWorldRow);

@@ -1,5 +1,6 @@
 package org.ahicode.objects;
 
+import org.ahicode.application.core.GameSettings;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -10,20 +11,16 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class ObjectsLoader {
 
+    private final static Set<String> bushNames = Set.of("bush", "bushType1", "bushType2", "bushType3", "bushType4");
     private final static String LEVEL_TMX_PATH = "/levels/Level1.tmx";
     private final static String OBJECTS_TSX_PATH = "/levels/full_basic_objects.tsx";
     private final static String TREES_TSX_PATH = "/levels/treesSpriteSheet.tsx";
 
-    private final static int SCALED_TILE_SIZE = 64;
-    private final static int SCALE_FACTOR = 4;
-    private final static int Y_OFFSET = SCALED_TILE_SIZE * 2;
+    private final static int Y_OFFSET = GameSettings.TILE_SIZE * 2;
 
     public static GameObject[] loadObjects(Map<Integer, ObjectMetadata> objectMetadataMap) {
         try {
@@ -55,13 +52,13 @@ public class ObjectsLoader {
                                 Element objectElement = (Element) objectNode;
 
                                 int objectGid = Integer.parseInt(objectElement.getAttribute("gid"));
-                                int objectX = Integer.parseInt(objectElement.getAttribute("x")) * SCALE_FACTOR;
-                                int objectY = Integer.parseInt(objectElement.getAttribute("y")) * SCALE_FACTOR - Y_OFFSET;
+                                int objectX = Integer.parseInt(objectElement.getAttribute("x")) * GameSettings.SCALE;
+                                int objectY = Integer.parseInt(objectElement.getAttribute("y")) * GameSettings.SCALE - Y_OFFSET;
                                 int objectWidth = Integer.parseInt(objectElement.getAttribute("width"));
                                 int objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
-                                GameObject gameObject = new GameObject(objectX, objectY, SCALED_TILE_SIZE, objectGid);
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
+                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getOrder());
 
                                 if (objectMeta != null) {
                                     gameObject.setImage(objectMeta.getImage());
@@ -204,6 +201,7 @@ public class ObjectsLoader {
     }
 
     private static ObjectMetadata getObjectMetadata(Element tileElement, BufferedImage objectImage) {
+        RenderingOrder renderingOrder = RenderingOrder.BACKGROUND;
         boolean objectCollision = false;
         String objectName = null;
 
@@ -215,11 +213,16 @@ public class ObjectsLoader {
 
             if ("name".equals(propertyName)) {
                 objectName = propertyValue;
+
+                if (bushNames.contains(objectName)) {
+                    renderingOrder = RenderingOrder.FOREGROUND;
+                }
+
             } else if ("collision".equals(propertyName)) {
                 objectCollision = Boolean.parseBoolean(propertyValue);
             }
         }
 
-        return new ObjectMetadata(objectName, objectImage, objectCollision);
+        return new ObjectMetadata(objectName, objectImage, objectCollision, renderingOrder);
     }
 }

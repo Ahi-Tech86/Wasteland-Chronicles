@@ -1,5 +1,7 @@
 package org.ahicode.objects;
 
+import org.ahicode.application.core.GameSettings;
+
 import java.util.Map;
 
 public class ObjectsSetter {
@@ -8,8 +10,8 @@ public class ObjectsSetter {
     private GameObject[] levelObjects;
     private final int tileSize;
 
-    public ObjectsSetter(int tileSize) {
-        this.tileSize = tileSize;
+    public ObjectsSetter() {
+        this.tileSize = GameSettings.TILE_SIZE;
         objectMetadataMap = ObjectsLoader.getObjectsMetadata();
         levelObjects = ObjectsLoader.loadObjects(objectMetadataMap);
     }

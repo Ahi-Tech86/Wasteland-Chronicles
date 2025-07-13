@@ -1,6 +1,7 @@
 package org.ahicode.entities;
 
 import org.ahicode.animations.PlayerAnimations;
+import org.ahicode.application.core.GameSettings;
 import org.ahicode.entities.enums.Action;
 import org.ahicode.physics.CollisionCheckable;
 
@@ -16,7 +17,7 @@ public class Player extends GameEntity {
     private final EntityShadow entityShadow;
     private boolean hasWeapon;
 
-    public Player(int x, int y, int screenWidth, int screenHeight, int tileSize, CollisionCheckable collisionCheckable) {
+    public Player(int x, int y, CollisionCheckable collisionCheckable) {
         super(x, y);
         setSpeed(2);
         hasWeapon = false;
@@ -35,7 +36,7 @@ public class Player extends GameEntity {
 
     public void render(Graphics2D graphics2D, int screenX, int screenY) {
         entityShadow.render(graphics2D, screenX, screenY);
-        animations.render(graphics2D, screenX, screenY, 64, 64);
+        animations.render(graphics2D, screenX, screenY, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
         //graphics2D.setColor(Color.PINK);
         //graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, (int) getHitbox().getWidth(), (int) getHitbox().getHeight());
     }

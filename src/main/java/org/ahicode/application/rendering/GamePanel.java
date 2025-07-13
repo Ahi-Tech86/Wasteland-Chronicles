@@ -6,6 +6,8 @@ import org.ahicode.application.input.KeyboardInputHandler;
 import javax.swing.*;
 import java.awt.*;
 
+import static org.ahicode.application.core.GameSettings.*;
+
 public class GamePanel extends JPanel {
 
     private final Game game;
@@ -13,7 +15,7 @@ public class GamePanel extends JPanel {
     public GamePanel(Game game) {
         this.game = game;
 
-        setPreferredSize(new Dimension(1024, 576));
+        setPreferredSize(new Dimension(WINDOW_WIDTH, WINDOW_HEIGHT));
         addKeyListener(new KeyboardInputHandler(this));
         setFocusable(true);
         setDoubleBuffered(true);
