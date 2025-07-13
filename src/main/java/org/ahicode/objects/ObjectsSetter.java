@@ -14,12 +14,6 @@ public class ObjectsSetter {
         levelObjects = ObjectsLoader.loadObjects(objectMetadataMap);
     }
 
-    public GameObject[] setObject() {
-        GameObject[] result = new GameObject[10];
-
-        return result;
-    }
-
     public GameObject[] getLevelObjects() {
         return levelObjects;
     }

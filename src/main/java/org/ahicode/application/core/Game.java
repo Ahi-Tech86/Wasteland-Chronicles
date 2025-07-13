@@ -59,10 +59,16 @@ public class Game implements Runnable {
     public void render(Graphics2D graphics2D) {
         tileManager.draw(graphics2D, getPlayer(), getCamera());
 
+        for (GameObject object : gameObjectsList) {
+            if (object != null && (!object.getName().equals("bush") || !object.getName().equals("bushType1") || !object.getName().equals("bushType2") || !object.getName().equals("bushType3") || !object.getName().equals("bushType4"))) {
+                object.render(graphics2D, player, camera);
+            }
+        }
+
         player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
 
         for (GameObject object : gameObjectsList) {
-            if (object != null) {
+            if (object.getName().equals("bush") || object.getName().equals("bushType1") || object.getName().equals("bushType2") || object.getName().equals("bushType3") || object.getName().equals("bushType4")) {
                 object.render(graphics2D, player, camera);
             }
         }

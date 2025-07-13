@@ -19,9 +19,13 @@ public class ObjectsLoader {
     private final static String OBJECTS_TSX_PATH = "/levels/full_basic_objects.tsx";
     private final static String TREES_TSX_PATH = "/levels/treesSpriteSheet.tsx";
 
+    private final static int SCALED_TILE_SIZE = 64;
+    private final static int SCALE_FACTOR = 4;
+    private final static int Y_OFFSET = SCALED_TILE_SIZE * 2;
+
     public static GameObject[] loadObjects(Map<Integer, ObjectMetadata> objectMetadataMap) {
         try {
-            GameObject[] objects = new GameObject[300];
+            GameObject[] objects = new GameObject[156];
 
             InputStream is = ObjectsLoader.class.getResourceAsStream(LEVEL_TMX_PATH);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -49,12 +53,12 @@ public class ObjectsLoader {
                                 Element objectElement = (Element) objectNode;
 
                                 Integer objectGid = Integer.parseInt(objectElement.getAttribute("gid"));
-                                Integer objectX = Integer.parseInt(objectElement.getAttribute("x")) * 4;
-                                Integer objectY = Integer.parseInt(objectElement.getAttribute("y")) * 4 - 64 * 2;
+                                Integer objectX = Integer.parseInt(objectElement.getAttribute("x")) * SCALE_FACTOR;
+                                Integer objectY = Integer.parseInt(objectElement.getAttribute("y")) * SCALE_FACTOR - Y_OFFSET;
                                 Integer objectWidth = Integer.parseInt(objectElement.getAttribute("width"));
                                 Integer objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
-                                objects[j] = new GameObject(objectX, objectY, 64, objectGid);
+                                objects[j] = new GameObject(objectX, objectY, SCALED_TILE_SIZE, objectGid);
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
                                 objects[j].setImage(objectMeta.getImage());
                                 objects[j].setName(objectMeta.getName());
@@ -66,6 +70,8 @@ public class ObjectsLoader {
                     }
                 }
             }
+
+            sortObjectArray(objects, 0, objects.length - 1);
 
             return objects;
         } catch (Exception e) {
@@ -109,6 +115,36 @@ public class ObjectsLoader {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static void sortObjectArray(GameObject[] objectsArray, int low, int high) {
+        if (low < high) {
+            int pivot = partition(objectsArray, low, high);
+
+            sortObjectArray(objectsArray, low, pivot - 1);
+            sortObjectArray(objectsArray, pivot + 1, high);
+        }
+    }
+
+    private static int partition(GameObject[] objectsArray, int low, int high) {
+        int pivot = objectsArray[high].getWorldY();
+        int i = (low - 1);
+
+        for (int j = low; j < high; j++) {
+            if (objectsArray[j].getWorldY() < pivot) {
+                i++;
+
+                GameObject temp = objectsArray[i];
+                objectsArray[i] = objectsArray[j];
+                objectsArray[j] = temp;
+            }
+        }
+
+        GameObject temp = objectsArray[i + 1];
+        objectsArray[i + 1] = objectsArray[high];
+        objectsArray[high] = temp;
+
+        return i + 1;
     }
 
     private static Map<Integer, ObjectMetadata> parseTsxFile(String path, int tiledOffset) throws Exception {
