@@ -10,7 +10,9 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ObjectsLoader {
@@ -25,7 +27,7 @@ public class ObjectsLoader {
 
     public static GameObject[] loadObjects(Map<Integer, ObjectMetadata> objectMetadataMap) {
         try {
-            GameObject[] objects = new GameObject[156];
+            List<GameObject> objectList = new ArrayList<>();
 
             InputStream is = ObjectsLoader.class.getResourceAsStream(LEVEL_TMX_PATH);
             DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
@@ -52,25 +54,31 @@ public class ObjectsLoader {
                             if (objectNode.getNodeType() == Node.ELEMENT_NODE) {
                                 Element objectElement = (Element) objectNode;
 
-                                Integer objectGid = Integer.parseInt(objectElement.getAttribute("gid"));
-                                Integer objectX = Integer.parseInt(objectElement.getAttribute("x")) * SCALE_FACTOR;
-                                Integer objectY = Integer.parseInt(objectElement.getAttribute("y")) * SCALE_FACTOR - Y_OFFSET;
-                                Integer objectWidth = Integer.parseInt(objectElement.getAttribute("width"));
-                                Integer objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
+                                int objectGid = Integer.parseInt(objectElement.getAttribute("gid"));
+                                int objectX = Integer.parseInt(objectElement.getAttribute("x")) * SCALE_FACTOR;
+                                int objectY = Integer.parseInt(objectElement.getAttribute("y")) * SCALE_FACTOR - Y_OFFSET;
+                                int objectWidth = Integer.parseInt(objectElement.getAttribute("width"));
+                                int objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
-                                objects[j] = new GameObject(objectX, objectY, SCALED_TILE_SIZE, objectGid);
+                                GameObject gameObject = new GameObject(objectX, objectY, SCALED_TILE_SIZE, objectGid);
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
-                                objects[j].setImage(objectMeta.getImage());
-                                objects[j].setName(objectMeta.getName());
-                                objects[j].setCollision(objectMeta.isCollision());
-                                objects[j].setSpriteWidth(objectWidth);
-                                objects[j].setSpriteHeight(objectHeight);
+
+                                if (objectMeta != null) {
+                                    gameObject.setImage(objectMeta.getImage());
+                                    gameObject.setName(objectMeta.getName());
+                                    gameObject.setCollision(objectMeta.isCollision());
+                                    gameObject.setSpriteWidth(objectWidth);
+                                    gameObject.setSpriteHeight(objectHeight);
+                                }
+
+                                objectList.add(gameObject);
                             }
                         }
                     }
                 }
             }
 
+            GameObject[] objects = objectList.toArray(new GameObject[0]);
             sortObjectArray(objects, 0, objects.length - 1);
 
             return objects;
