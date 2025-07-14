@@ -20,10 +20,10 @@ public class GameObject extends WorldPositionedObject {
     private int solidAreaDefaultX;
     private int solidAreaDefaultY;
 
-    public GameObject(int worldX, int worldY, RenderingOrder order) {
+    public GameObject(int worldX, int worldY, RenderingOrder order, Rectangle solidArea) {
         super(worldX, worldY);
         this.order = order;
-        this.solidArea = new Rectangle(0, 0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
+        this.solidArea = solidArea;
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
     }
@@ -33,6 +33,11 @@ public class GameObject extends WorldPositionedObject {
         int screenY = getWorldY() - player.getWorldY() + camera.getScreenY();
 
         graphics2D.drawImage(image, screenX, screenY, getSpriteWidth() * GameSettings.SCALE, getSpriteHeight() * GameSettings.SCALE, null);
+
+        if (name.equals("fenceSideLeft") || name.equals("fenceSideRight")) {
+            graphics2D.setColor(Color.PINK);
+            graphics2D.drawRect(screenX + solidArea.x, screenY + solidArea.y, (int) solidArea.getWidth(), (int) solidArea.getHeight());
+        }
     }
 
     public boolean isCollision() {

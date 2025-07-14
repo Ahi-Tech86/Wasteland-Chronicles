@@ -9,13 +9,17 @@ import org.w3c.dom.NodeList;
 import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.InputStream;
 import java.util.*;
+import java.util.List;
 
 public class ObjectsLoader {
 
     private final static Set<String> bushNames = Set.of("bush", "bushType1", "bushType2", "bushType3", "bushType4");
+    private final static Set<String> treeNames = Set.of("treeType1", "treeType2", "treeType3", "treeType4");
+    private final static Set<String> fenceNames = Set.of("fenceSideLeft", "fenceSideRight");
     private final static String LEVEL_TMX_PATH = "/levels/Level1.tmx";
     private final static String OBJECTS_TSX_PATH = "/levels/full_basic_objects.tsx";
     private final static String TREES_TSX_PATH = "/levels/treesSpriteSheet.tsx";
@@ -57,7 +61,7 @@ public class ObjectsLoader {
                                 int objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
-                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getOrder());
+                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getOrder(), objectMeta.getSolidArea());
 
                                 if (objectMeta != null) {
                                     gameObject.setImage(objectMeta.getImage());
@@ -65,6 +69,7 @@ public class ObjectsLoader {
                                     gameObject.setCollision(objectMeta.isCollision());
                                     gameObject.setSpriteWidth(objectWidth);
                                     gameObject.setSpriteHeight(objectHeight);
+                                    //gameObject.setSolidArea(objectMeta.getSolidArea());
                                 }
 
                                 objectList.add(gameObject);
@@ -201,6 +206,7 @@ public class ObjectsLoader {
 
     private static ObjectMetadata getObjectMetadata(Element tileElement, BufferedImage objectImage) {
         RenderingOrder renderingOrder = RenderingOrder.BACKGROUND;
+        Rectangle solidArea = new Rectangle(0, 0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
         boolean objectCollision = false;
         String objectName = null;
 
@@ -217,11 +223,23 @@ public class ObjectsLoader {
                     renderingOrder = RenderingOrder.FOREGROUND;
                 }
 
+                if (treeNames.contains(objectName)) {
+                    solidArea = new Rectangle(0, 0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE * 2);
+                }
+
+                if (fenceNames.contains(objectName)) {
+                    if ("fenceSideRight".equals(objectName)) {
+                        solidArea = new Rectangle(13 * GameSettings.SCALE, 0, 3 * GameSettings.SCALE, 16 * GameSettings.SCALE);
+                    } else if ("fenceSideLeft".equals(objectName)) {
+                        solidArea = new Rectangle(0, 0, 3 * GameSettings.SCALE, 16 * GameSettings.SCALE);
+                    }
+                }
+
             } else if ("collision".equals(propertyName)) {
                 objectCollision = Boolean.parseBoolean(propertyValue);
             }
         }
 
-        return new ObjectMetadata(objectName, objectImage, objectCollision, renderingOrder);
+        return new ObjectMetadata(objectName, objectImage, objectCollision, renderingOrder, solidArea);
     }
 }
