@@ -8,6 +8,8 @@ import org.ahicode.entities.Player;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+import static org.ahicode.application.core.GameSettings.SCALE;
+
 public class GameObject extends WorldPositionedObject {
 
     private boolean collision = false;
@@ -32,11 +34,13 @@ public class GameObject extends WorldPositionedObject {
         int screenX = getWorldX() - player.getWorldX() + camera.getScreenX();
         int screenY = getWorldY() - player.getWorldY() + camera.getScreenY();
 
-        graphics2D.drawImage(image, screenX, screenY, getSpriteWidth() * GameSettings.SCALE, getSpriteHeight() * GameSettings.SCALE, null);
-
-        if (name.equals("fenceSideLeft") || name.equals("fenceSideRight")) {
-            graphics2D.setColor(Color.PINK);
-            graphics2D.drawRect(screenX + solidArea.x, screenY + solidArea.y, (int) solidArea.getWidth(), (int) solidArea.getHeight());
+        if (
+                getWorldX() + GameSettings.TILE_SIZE > player.getWorldX() - camera.getScreenX() &&
+                getWorldX() - GameSettings.TILE_SIZE < player.getWorldX() + camera.getScreenX() &&
+                getWorldY() + GameSettings.TILE_SIZE * 2 > player.getWorldY() - camera.getScreenY() &&
+                getWorldY() - GameSettings.TILE_SIZE * 2 < player.getWorldY() + camera.getScreenY()
+        ) {
+            graphics2D.drawImage(image, screenX, screenY, spriteWidth * SCALE, spriteHeight * SCALE, null);
         }
     }
 

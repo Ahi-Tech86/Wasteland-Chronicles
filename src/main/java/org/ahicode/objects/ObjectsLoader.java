@@ -15,11 +15,13 @@ import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
+import static org.ahicode.application.core.GameSettings.SCALE;
+
 public class ObjectsLoader {
 
     private final static Set<String> bushNames = Set.of("bush", "bushType1", "bushType2", "bushType3", "bushType4");
     private final static Set<String> treeNames = Set.of("treeType1", "treeType2", "treeType3", "treeType4");
-    private final static Set<String> fenceNames = Set.of("fenceSideLeft", "fenceSideRight");
+    private final static Set<String> fenceNames = Set.of("fenceSideLeft", "fenceSideRight", "cornerFence", "fence", "fenceCorner", "fenceCornerRight", "fenceBeamLeft", "fenceBeamRight");
     private final static String LEVEL_TMX_PATH = "/levels/Level1.tmx";
     private final static String OBJECTS_TSX_PATH = "/levels/full_basic_objects.tsx";
     private final static String TREES_TSX_PATH = "/levels/treesSpriteSheet.tsx";
@@ -55,8 +57,8 @@ public class ObjectsLoader {
                                 Element objectElement = (Element) objectNode;
 
                                 int objectGid = Integer.parseInt(objectElement.getAttribute("gid"));
-                                int objectX = Integer.parseInt(objectElement.getAttribute("x")) * GameSettings.SCALE;
-                                int objectY = Integer.parseInt(objectElement.getAttribute("y")) * GameSettings.SCALE - Y_OFFSET;
+                                int objectX = Integer.parseInt(objectElement.getAttribute("x")) * SCALE;
+                                int objectY = Integer.parseInt(objectElement.getAttribute("y")) * SCALE - Y_OFFSET;
                                 int objectWidth = Integer.parseInt(objectElement.getAttribute("width"));
                                 int objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
@@ -69,7 +71,6 @@ public class ObjectsLoader {
                                     gameObject.setCollision(objectMeta.isCollision());
                                     gameObject.setSpriteWidth(objectWidth);
                                     gameObject.setSpriteHeight(objectHeight);
-                                    //gameObject.setSolidArea(objectMeta.getSolidArea());
                                 }
 
                                 objectList.add(gameObject);
@@ -229,10 +230,18 @@ public class ObjectsLoader {
 
                 if (fenceNames.contains(objectName)) {
                     if ("fenceSideRight".equals(objectName)) {
-                        solidArea = new Rectangle(13 * GameSettings.SCALE, 0, 3 * GameSettings.SCALE, 16 * GameSettings.SCALE);
+                        solidArea = new Rectangle(13 * SCALE, 0, 3 * SCALE, 16 * SCALE);
                     } else if ("fenceSideLeft".equals(objectName)) {
-                        solidArea = new Rectangle(0, 0, 3 * GameSettings.SCALE, 16 * GameSettings.SCALE);
+                        solidArea = new Rectangle(0, 0, 3 * SCALE, 16 * SCALE);
+                    } else if ("cornerFence".equals(objectName) || "fence".equals(objectName) || "fenceCorner".equals(objectName) || "fenceCornerRight".equals(objectName)) {
+                        solidArea = new Rectangle(0, 10 * SCALE, 16 * SCALE, 6 * SCALE);
+                    } else if ("fenceBeamLeft".equals(objectName)) {
+                        solidArea = new Rectangle(0, 10 * SCALE, 3 * SCALE, 6 * SCALE);
+                    } else if ("fenceBeamRight".equals(objectName)) {
+                        solidArea = new Rectangle(13 * SCALE, 10 * SCALE, 3 * SCALE, 6 * SCALE);
                     }
+
+                    renderingOrder = RenderingOrder.FOREGROUND;
                 }
 
             } else if ("collision".equals(propertyName)) {

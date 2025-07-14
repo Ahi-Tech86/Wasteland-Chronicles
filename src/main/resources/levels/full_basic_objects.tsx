@@ -190,11 +190,13 @@
  </tile>
  <tile id="33">
   <properties>
+   <property name="collision" type="bool" value="true"/>
    <property name="name" value="fenceBeamRight"/>
   </properties>
  </tile>
  <tile id="34">
   <properties>
+   <property name="collision" type="bool" value="true"/>
    <property name="name" value="fenceBeamLeft"/>
   </properties>
  </tile>
