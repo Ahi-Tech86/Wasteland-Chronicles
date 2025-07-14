@@ -1,5 +1,7 @@
 package org.ahicode.tile;
 
+import org.ahicode.application.core.GameSettings;
+import org.ahicode.utility.SpriteManager;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -109,8 +111,9 @@ public class TileLoader {
                     metadata.tileWidth(),
                     metadata.tileHeight()
             );
+            BufferedImage scaledTileImage = SpriteManager.scaleImage(tileImage, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
 
-            tiles[i] = new Tile(tileImage);
+            tiles[i] = new Tile(scaledTileImage);
         }
 
         return tiles;

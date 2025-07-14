@@ -63,7 +63,7 @@ public class ObjectsLoader {
                                 int objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
-                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getOrder(), objectMeta.getSolidArea());
+                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getSolidArea());
 
                                 if (objectMeta != null) {
                                     gameObject.setImage(objectMeta.getImage());
@@ -206,7 +206,6 @@ public class ObjectsLoader {
     }
 
     private static ObjectMetadata getObjectMetadata(Element tileElement, BufferedImage objectImage) {
-        RenderingOrder renderingOrder = RenderingOrder.BACKGROUND;
         Rectangle solidArea = new Rectangle(0, 0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
         boolean objectCollision = false;
         String objectName = null;
@@ -220,12 +219,8 @@ public class ObjectsLoader {
             if ("name".equals(propertyName)) {
                 objectName = propertyValue;
 
-                if (bushNames.contains(objectName)) {
-                    renderingOrder = RenderingOrder.FOREGROUND;
-                }
-
                 if (treeNames.contains(objectName)) {
-                    solidArea = new Rectangle(0, 0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE * 2);
+                    solidArea = new Rectangle(0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
                 }
 
                 if (fenceNames.contains(objectName)) {
@@ -240,8 +235,6 @@ public class ObjectsLoader {
                     } else if ("fenceBeamRight".equals(objectName)) {
                         solidArea = new Rectangle(13 * SCALE, 10 * SCALE, 3 * SCALE, 6 * SCALE);
                     }
-
-                    renderingOrder = RenderingOrder.FOREGROUND;
                 }
 
             } else if ("collision".equals(propertyName)) {
@@ -249,6 +242,6 @@ public class ObjectsLoader {
             }
         }
 
-        return new ObjectMetadata(objectName, objectImage, objectCollision, renderingOrder, solidArea);
+        return new ObjectMetadata(objectName, objectImage, objectCollision, solidArea);
     }
 }

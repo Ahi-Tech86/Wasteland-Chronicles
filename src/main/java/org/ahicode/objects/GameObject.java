@@ -17,14 +17,12 @@ public class GameObject extends WorldPositionedObject {
     private String name;
     private int spriteWidth;
     private int spriteHeight;
-    private final RenderingOrder order;
     private final Rectangle solidArea;
     private int solidAreaDefaultX;
     private int solidAreaDefaultY;
 
-    public GameObject(int worldX, int worldY, RenderingOrder order, Rectangle solidArea) {
+    public GameObject(int worldX, int worldY, Rectangle solidArea) {
         super(worldX, worldY);
-        this.order = order;
         this.solidArea = solidArea;
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
@@ -88,10 +86,6 @@ public class GameObject extends WorldPositionedObject {
 
     public void setSpriteHeight(int spriteHeight) {
         this.spriteHeight = spriteHeight;
-    }
-
-    public RenderingOrder getOrder() {
-        return order;
     }
 
     public Rectangle getSolidArea() {

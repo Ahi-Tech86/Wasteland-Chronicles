@@ -37,20 +37,20 @@
  </tile>
  <tile id="6">
   <properties>
-   <property name="collision" type="bool" value="true"/>
-   <property name="name" value="tent"/>
+   <property name="collision" type="bool" value="false"/>
+   <property name="name" value="tentRoof"/>
   </properties>
  </tile>
  <tile id="7">
   <properties>
-   <property name="collision" type="bool" value="true"/>
-   <property name="name" value="tent"/>
+   <property name="collision" type="bool" value="false"/>
+   <property name="name" value="tentRoof"/>
   </properties>
  </tile>
  <tile id="8">
   <properties>
-   <property name="collision" type="bool" value="true"/>
-   <property name="name" value="tent"/>
+   <property name="collision" type="bool" value="false"/>
+   <property name="name" value="tentRoof"/>
   </properties>
  </tile>
  <tile id="9">
@@ -158,7 +158,7 @@
  </tile>
  <tile id="27">
   <properties>
-   <property name="collision" type="bool" value="false"/>
+   <property name="collision" type="bool" value="true"/>
    <property name="name" value="tent"/>
   </properties>
  </tile>

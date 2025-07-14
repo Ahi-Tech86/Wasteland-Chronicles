@@ -7,12 +7,13 @@ import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 import org.ahicode.objects.GameObject;
 import org.ahicode.objects.ObjectsSetter;
-import org.ahicode.objects.RenderingOrder;
 import org.ahicode.physics.CollisionCheckable;
 import org.ahicode.physics.CollisionChecker;
 import org.ahicode.tile.TileManager;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.ahicode.application.core.GameSettings.*;
 
@@ -42,7 +43,7 @@ public class Game implements Runnable {
         objectsSetter = new ObjectsSetter();
         collisionCheckable = new CollisionChecker(tileManager, objectsSetter);
 
-        player = new Player(1 * TILE_SIZE, 5 * TILE_SIZE, collisionCheckable);
+        player = new Player(11 * TILE_SIZE, 11 * TILE_SIZE, collisionCheckable);
         camera = new Camera(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW);
         gameObjectsList = objectsSetter.getLevelObjects();
 
@@ -59,18 +60,27 @@ public class Game implements Runnable {
     public void render(Graphics2D graphics2D) {
         tileManager.draw(graphics2D, getPlayer(), getCamera());
 
+        List<GameObject> beforePlayer = new ArrayList<>();
+        List<GameObject> afterPlayer = new ArrayList<>();
+
         for (GameObject object : gameObjectsList) {
-            if (object != null && object.getOrder().equals(RenderingOrder.BACKGROUND)) {
-                object.render(graphics2D, player, camera);
+            if (object != null) {
+                if (object.getWorldY() + object.getSpriteHeight() < player.getWorldY()) {
+                    beforePlayer.add(object);
+                } else {
+                    afterPlayer.add(object);
+                }
             }
+        }
+
+        for (GameObject object : beforePlayer) {
+            object.render(graphics2D, player, camera);
         }
 
         player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
 
-        for (GameObject object : gameObjectsList) {
-            if (object != null && object.getOrder().equals(RenderingOrder.FOREGROUND)) {
-                object.render(graphics2D, player, camera);
-            }
+        for (GameObject object : afterPlayer) {
+            object.render(graphics2D, player, camera);
         }
     }
 
