@@ -40,8 +40,8 @@ public class Game implements Runnable {
 
     public Game() {
         tileManager = new TileManager(maxWorldCol, maxWorldRow);
-        collisionCheckable = new CollisionChecker(tileManager);
         objectsSetter = new ObjectsSetter();
+        collisionCheckable = new CollisionChecker(tileManager, objectsSetter);
 
         player = new Player(1 * TILE_SIZE, 5 * TILE_SIZE, collisionCheckable);
         camera = new Camera(TILE_SIZE * MAX_SCREEN_COL, TILE_SIZE * MAX_SCREEN_ROW);

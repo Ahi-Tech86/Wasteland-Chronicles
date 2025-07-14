@@ -3,21 +3,62 @@ package org.ahicode.physics;
 import org.ahicode.application.core.GameSettings;
 import org.ahicode.entities.GameEntity;
 import org.ahicode.entities.enums.Direction;
+import org.ahicode.objects.GameObject;
+import org.ahicode.objects.ObjectsSetter;
 import org.ahicode.tile.TileManager;
 
 public class CollisionChecker implements CollisionCheckable {
 
+    private final ObjectsSetter objectsSetter;
     private final TileManager tileManager;
     private final int tileSize;
 
-    public CollisionChecker(TileManager tileManager) {
+    public CollisionChecker(TileManager tileManager, ObjectsSetter objectsSetter) {
         this.tileSize = GameSettings.TILE_SIZE;
         this.tileManager = tileManager;
+        this.objectsSetter = objectsSetter;
     }
 
     @Override
     public void checkCollision(GameEntity entity) {
         checkTile(entity);
+    }
+
+    @Override
+    public int checkObject(GameEntity entity, boolean isPlayer) {
+        int index = 9999;
+
+        GameObject[] objects = objectsSetter.getLevelObjects();
+
+        int entityHitboxDefaultX = entity.getHitbox().x;
+        int entityHitboxDefaultY = entity.getHitbox().y;
+
+        entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
+        entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
+
+        for (int i = 0; i < objects.length; i++) {
+            if (objects[i] != null && objects[i].isCollision()) {
+                // Get object solid area
+                objects[i].getSolidArea().x = objects[i].getWorldX() + objects[i].getSolidArea().x;
+                objects[i].getSolidArea().y = objects[i].getWorldY() + objects[i].getSolidArea().y;
+
+                if (entity.getHitbox().intersects(objects[i].getSolidArea())) {
+                    entity.setCollisionOn(true);
+
+                    if (isPlayer) {
+                        index = i;
+                    }
+                }
+
+                objects[i].getSolidArea().x = objects[i].getSolidAreaDefaultX();
+                objects[i].getSolidArea().y = objects[i].getSolidAreaDefaultY();
+            }
+        }
+
+        entity.getHitbox().x = entity.getHitboxDefaultX();
+        entity.getHitbox().y = entity.getHitboxDefaultY();
+
+        return index;
     }
 
     private void checkTile(GameEntity entity) {

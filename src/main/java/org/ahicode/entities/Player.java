@@ -22,6 +22,8 @@ public class Player extends GameEntity {
         setSpeed(2);
         hasWeapon = false;
         setHitbox(new Rectangle(4 * 4, 5 * 4, 8 * 4, 11 * 4));
+        setHitboxDefaultX(getHitbox().x);
+        setHitboxDefaultY(getHitbox().y);
 
         this.collisionCheckable = collisionCheckable;
         entityShadow = new EntityShadow();
@@ -94,6 +96,7 @@ public class Player extends GameEntity {
         }
 
         collisionCheckable.checkCollision(this);
+        collisionCheckable.checkObject(this, true);
 
         if (isCollisionOn()) {
             setWorldX(originalWorldX);

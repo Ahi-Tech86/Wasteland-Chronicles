@@ -43,7 +43,6 @@ public class ObjectsLoader {
 
                     if ("environment".equals(name)) {
                         NodeList objectsList = objectGroupElement.getElementsByTagName("object");
-                        System.out.println(objectsList.getLength());
 
                         for (int j = 0; j < objectsList.getLength(); j++) {
                             Node objectNode = objectsList.item(j);

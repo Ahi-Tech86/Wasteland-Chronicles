@@ -16,11 +16,16 @@ public class GameObject extends WorldPositionedObject {
     private int spriteWidth;
     private int spriteHeight;
     private final RenderingOrder order;
-
+    private final Rectangle solidArea;
+    private int solidAreaDefaultX;
+    private int solidAreaDefaultY;
 
     public GameObject(int worldX, int worldY, RenderingOrder order) {
         super(worldX, worldY);
         this.order = order;
+        this.solidArea = new Rectangle(0, 0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
+        this.solidAreaDefaultX = solidArea.x;
+        this.solidAreaDefaultY = solidArea.y;
     }
 
     public void render(Graphics2D graphics2D, Player player, Camera camera) {
@@ -72,5 +77,25 @@ public class GameObject extends WorldPositionedObject {
 
     public RenderingOrder getOrder() {
         return order;
+    }
+
+    public Rectangle getSolidArea() {
+        return solidArea;
+    }
+
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+        this.solidAreaDefaultX = solidAreaDefaultX;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
+        this.solidAreaDefaultY = solidAreaDefaultY;
     }
 }

@@ -79,7 +79,7 @@
  <tile id="13">
   <properties>
    <property name="collision" type="bool" value="true"/>
-   <property name="name" value="fenceSide"/>
+   <property name="name" value="fenceSideLeft"/>
   </properties>
  </tile>
  <tile id="14">
@@ -91,7 +91,7 @@
  <tile id="15">
   <properties>
    <property name="collision" type="bool" value="true"/>
-   <property name="name" value="fenceSide2"/>
+   <property name="name" value="fenceSideRight"/>
   </properties>
  </tile>
  <tile id="16">

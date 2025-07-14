@@ -13,6 +13,8 @@ public abstract class GameEntity extends WorldPositionedObject {
     private boolean attacking = false;
     private boolean moving = false;
     private Rectangle hitbox;
+    private int hitboxDefaultX;
+    private int hitboxDefaultY;
     private int speed;
 
     public GameEntity(int worldX, int worldY) {
@@ -98,5 +100,21 @@ public abstract class GameEntity extends WorldPositionedObject {
 
     public void setCollisionOn(boolean collisionOn) {
         this.collisionOn = collisionOn;
+    }
+
+    public int getHitboxDefaultX() {
+        return hitboxDefaultX;
+    }
+
+    public void setHitboxDefaultX(int hitboxDefaultX) {
+        this.hitboxDefaultX = hitboxDefaultX;
+    }
+
+    public int getHitboxDefaultY() {
+        return hitboxDefaultY;
+    }
+
+    public void setHitboxDefaultY(int hitboxDefaultY) {
+        this.hitboxDefaultY = hitboxDefaultY;
     }
 }
