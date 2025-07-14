@@ -31,16 +31,22 @@ public class GameObject extends WorldPositionedObject {
     }
 
     public void render(Graphics2D graphics2D, Player player, Camera camera) {
-        int screenX = getWorldX() - player.getWorldX() + camera.getScreenX();
-        int screenY = getWorldY() - player.getWorldY() + camera.getScreenY();
+        if (camera.isVisible(getWorldX(), getWorldY(), player.getWorldX(), player.getWorldY())) {
+            Point screenCoords = camera.worldCoordsToScreen(
+                    getWorldX(),
+                    getWorldY(),
+                    player.getWorldX(),
+                    player.getWorldY()
+            );
 
-        if (
-                getWorldX() + GameSettings.TILE_SIZE > player.getWorldX() - camera.getScreenX() &&
-                getWorldX() - GameSettings.TILE_SIZE < player.getWorldX() + camera.getScreenX() &&
-                getWorldY() + GameSettings.TILE_SIZE * 2 > player.getWorldY() - camera.getScreenY() &&
-                getWorldY() - GameSettings.TILE_SIZE * 2 < player.getWorldY() + camera.getScreenY()
-        ) {
-            graphics2D.drawImage(image, screenX, screenY, spriteWidth * SCALE, spriteHeight * SCALE, null);
+            graphics2D.drawImage(
+                    image,
+                    screenCoords.x,
+                    screenCoords.y,
+                    spriteWidth * SCALE,
+                    spriteHeight * SCALE,
+                    null
+            );
         }
     }
 

@@ -2,6 +2,7 @@ package org.ahicode.application.core;
 
 import org.ahicode.application.rendering.GamePanel;
 import org.ahicode.application.rendering.GameWindow;
+import org.ahicode.application.sound.SoundManager;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
 import org.ahicode.objects.GameObject;
@@ -17,21 +18,17 @@ import static org.ahicode.application.core.GameSettings.*;
 
 public class Game implements Runnable {
 
+    private static Game instance;
     private final GameWindow gameWindow;
     private final GamePanel gamePanel;
     private final Thread gameThread;
     private final TileManager tileManager;
 
-    private final int originalTileSize = 16;
-    private final int scale = 4;
-    private final int tileSize = originalTileSize * scale;
-    private final int maxScreenCol = 16;
-    private final int maxScreenRow = 9;
-
     // WORLD SETTINGS
     private final int maxWorldCol = 50;
     private final int maxWorldRow = 50;
 
+    private final SoundManager soundEffects;
     private final GameObject[] gameObjectsList;
     private final CollisionCheckable collisionCheckable;
     private final ObjectsSetter objectsSetter;
@@ -39,6 +36,8 @@ public class Game implements Runnable {
     private final Camera camera;
 
     public Game() {
+        instance = this;
+        soundEffects = new SoundManager();
         tileManager = new TileManager(maxWorldCol, maxWorldRow);
         objectsSetter = new ObjectsSetter();
         collisionCheckable = new CollisionChecker(tileManager, objectsSetter);
@@ -123,5 +122,14 @@ public class Game implements Runnable {
 
     public Camera getCamera() {
         return camera;
+    }
+
+    public void playSE(int i) {
+        soundEffects.setFile(i);
+        soundEffects.play();
+    }
+
+    public static Game getInstance() {
+        return instance;
     }
 }

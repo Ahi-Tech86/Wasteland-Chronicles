@@ -1,12 +1,15 @@
 package org.ahicode.entities;
 
+import org.ahicode.application.core.Game;
 import org.ahicode.core.WorldPositionedObject;
 import org.ahicode.entities.enums.Direction;
 
 import java.awt.*;
+import java.util.Random;
 
 public abstract class GameEntity extends WorldPositionedObject {
 
+    private final Random random = new Random();
     private boolean left, right, down, up;
     private Direction currentDirection;
     private boolean collisionOn = false;
@@ -16,10 +19,24 @@ public abstract class GameEntity extends WorldPositionedObject {
     private int hitboxDefaultX;
     private int hitboxDefaultY;
     private int speed;
+    private boolean wasOnBush = false;
 
     public GameEntity(int worldX, int worldY) {
         super(worldX, worldY);
         currentDirection = Direction.DOWN;
+    }
+
+    public void playBushSoundEffect() {
+        if (isMoving()) {
+            if (!wasOnBush) {
+                int randomSoundIndex = random.nextInt(2);
+                Game.getInstance().playSE(randomSoundIndex);
+            }
+
+            wasOnBush = true;
+        } else {
+            wasOnBush = false;
+        }
     }
 
     public boolean isLeft() {

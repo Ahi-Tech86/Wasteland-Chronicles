@@ -7,8 +7,11 @@ import org.ahicode.objects.GameObject;
 import org.ahicode.objects.ObjectsSetter;
 import org.ahicode.tile.TileManager;
 
+import java.util.Set;
+
 public class CollisionChecker implements CollisionCheckable {
 
+    private final static Set<String> bushNames = Set.of("bush", "bushType1", "bushType2", "bushType3", "bushType4");
     private final ObjectsSetter objectsSetter;
     private final TileManager tileManager;
     private final int tileSize;
@@ -48,6 +51,17 @@ public class CollisionChecker implements CollisionCheckable {
                     if (isPlayer) {
                         index = i;
                     }
+                }
+
+                objects[i].getSolidArea().x = objects[i].getSolidAreaDefaultX();
+                objects[i].getSolidArea().y = objects[i].getSolidAreaDefaultY();
+
+            } else if (objects[i] != null && bushNames.contains(objects[i].getName())) {
+                objects[i].getSolidArea().x = objects[i].getWorldX() + objects[i].getSolidArea().x;
+                objects[i].getSolidArea().y = objects[i].getWorldY() + objects[i].getSolidArea().y;
+
+                if (entity.getHitbox().intersects(objects[i].getSolidArea())) {
+                    entity.playBushSoundEffect();
                 }
 
                 objects[i].getSolidArea().x = objects[i].getSolidAreaDefaultX();

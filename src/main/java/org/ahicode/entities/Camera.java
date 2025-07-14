@@ -2,6 +2,8 @@ package org.ahicode.entities;
 
 import org.ahicode.application.core.GameSettings;
 
+import java.awt.*;
+
 public class Camera {
 
     private final int screenX, screenY;
@@ -17,5 +19,20 @@ public class Camera {
 
     public int getScreenY() {
         return screenY;
+    }
+
+    public Point worldCoordsToScreen(int worldX, int worldY, int playerWorldX, int playerWorldY) {
+        return new Point(
+                worldX - playerWorldX + screenX,
+                worldY - playerWorldY + screenY
+        );
+    }
+
+    public boolean isVisible(int worldX, int worldY, int playerWorldX, int playerWorldY) {
+        return
+                worldX + GameSettings.TILE_SIZE > playerWorldX - screenX &&
+                worldX - GameSettings.TILE_SIZE < playerWorldX + screenX &&
+                worldY + GameSettings.TILE_SIZE * 2 > playerWorldY - screenY &&
+                worldY - GameSettings.TILE_SIZE < playerWorldY + screenY;
     }
 }
