@@ -4,9 +4,11 @@ import org.ahicode.animations.PlayerAnimations;
 import org.ahicode.application.core.GameSettings;
 import org.ahicode.entities.enums.Action;
 import org.ahicode.physics.CollisionCheckable;
+import org.ahicode.sound.Sound;
 
 import java.awt.*;
 
+import static org.ahicode.application.core.GameSettings.*;
 import static org.ahicode.entities.enums.Action.*;
 import static org.ahicode.entities.enums.Direction.*;
 
@@ -17,11 +19,11 @@ public class Player extends GameEntity {
     private final EntityShadow entityShadow;
     private boolean hasWeapon;
 
-    public Player(int x, int y, CollisionCheckable collisionCheckable) {
-        super(x, y);
+    public Player(int x, int y, CollisionCheckable collisionCheckable, Sound soundEffects) {
+        super(x, y, soundEffects);
         setSpeed(2);
         hasWeapon = false;
-        setHitbox(new Rectangle(4 * 4, 5 * 4, 8 * 4, 11 * 4));
+        setHitbox(new Rectangle(4 * SCALE, 5 * SCALE, 8 * SCALE, 11 * SCALE));
         setHitboxDefaultX(getHitbox().x);
         setHitboxDefaultY(getHitbox().y);
 
@@ -38,7 +40,7 @@ public class Player extends GameEntity {
 
     public void render(Graphics2D graphics2D, int screenX, int screenY) {
         entityShadow.render(graphics2D, screenX, screenY);
-        animations.render(graphics2D, screenX, screenY, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
+        animations.render(graphics2D, screenX, screenY, TILE_SIZE, TILE_SIZE);
         //graphics2D.setColor(Color.PINK);
         //graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, (int) getHitbox().getWidth(), (int) getHitbox().getHeight());
     }

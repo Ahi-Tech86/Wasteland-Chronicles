@@ -18,4 +18,8 @@ public class GameSettings {
     // Display settings
     public static final int MAX_SCREEN_COL = 16;
     public static final int MAX_SCREEN_ROW = 9;
+
+    // Game states
+    public static final int PLAY_STATE = 1;
+    public static final int PAUSE_STATE = 2;
 }

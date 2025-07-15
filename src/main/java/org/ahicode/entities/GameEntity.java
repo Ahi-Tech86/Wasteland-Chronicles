@@ -3,12 +3,14 @@ package org.ahicode.entities;
 import org.ahicode.application.core.Game;
 import org.ahicode.core.WorldPositionedObject;
 import org.ahicode.entities.enums.Direction;
+import org.ahicode.sound.Sound;
 
 import java.awt.*;
 import java.util.Random;
 
 public abstract class GameEntity extends WorldPositionedObject {
 
+    private final Sound soundEffects;
     private final Random random = new Random();
     private boolean left, right, down, up;
     private Direction currentDirection;
@@ -21,16 +23,17 @@ public abstract class GameEntity extends WorldPositionedObject {
     private int speed;
     private boolean wasOnBush = false;
 
-    public GameEntity(int worldX, int worldY) {
+    public GameEntity(int worldX, int worldY, Sound soundEffects) {
         super(worldX, worldY);
+        this.soundEffects = soundEffects;
         currentDirection = Direction.DOWN;
     }
 
     public void playBushSoundEffect() {
         if (isMoving()) {
             if (!wasOnBush) {
-                int randomSoundIndex = random.nextInt(2);
-                Game.getInstance().playSE(randomSoundIndex);
+                String soundId = (random.nextInt(2) == 0) ? "bush1" : "bush2";
+                soundEffects.play(soundId);
             }
 
             wasOnBush = true;
