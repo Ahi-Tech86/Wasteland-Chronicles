@@ -9,13 +9,12 @@ import org.ahicode.objects.GameObject;
 import org.ahicode.objects.ObjectsSetter;
 import org.ahicode.physics.CollisionCheckable;
 import org.ahicode.physics.CollisionChecker;
+import org.ahicode.rendering.RenderSystem;
 import org.ahicode.sound.Sound;
 import org.ahicode.sound.SoundManager;
 import org.ahicode.tile.TileManager;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.ahicode.application.core.GameSettings.*;
 
@@ -31,6 +30,7 @@ public class Game implements Runnable {
     private final int maxWorldCol = 50;
     private final int maxWorldRow = 50;
 
+    private final RenderSystem renderSystem;
     private final UserInterface userInterface;
     private final Sound soundEffects;
     private final GameObject[] gameObjectsList;
@@ -40,6 +40,7 @@ public class Game implements Runnable {
     public Game() {
 
         soundEffects = new SoundManager();
+        renderSystem = new RenderSystem(this);
         tileManager = new TileManager(maxWorldCol, maxWorldRow);
         ObjectsSetter objectsSetter = new ObjectsSetter();
         CollisionCheckable collisionCheckable = new CollisionChecker(tileManager, objectsSetter);
@@ -64,32 +65,7 @@ public class Game implements Runnable {
     }
 
     public void render(Graphics2D graphics2D) {
-        tileManager.draw(graphics2D, getPlayer(), getCamera());
-
-        List<GameObject> beforePlayer = new ArrayList<>();
-        List<GameObject> afterPlayer = new ArrayList<>();
-
-        for (GameObject object : gameObjectsList) {
-            if (object != null) {
-                if (object.getWorldY() + object.getSpriteHeight() < player.getWorldY()) {
-                    beforePlayer.add(object);
-                } else {
-                    afterPlayer.add(object);
-                }
-            }
-        }
-
-        for (GameObject object : beforePlayer) {
-            object.render(graphics2D, player, camera);
-        }
-
-        player.render(graphics2D, camera.getScreenX(), camera.getScreenY());
-
-        for (GameObject object : afterPlayer) {
-            object.render(graphics2D, player, camera);
-        }
-
-        userInterface.render(graphics2D);
+        renderSystem.render(graphics2D);
     }
 
     @Override
@@ -152,5 +128,17 @@ public class Game implements Runnable {
 
     public int getGameState() {
         return gameState;
+    }
+
+    public TileManager getTileManager() {
+        return tileManager;
+    }
+
+    public GameObject[] getGameObjectsList() {
+        return gameObjectsList;
+    }
+
+    public UserInterface getUserInterface() {
+        return userInterface;
     }
 }

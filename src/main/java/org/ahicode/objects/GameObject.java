@@ -1,9 +1,9 @@
 package org.ahicode.objects;
 
-import org.ahicode.application.core.GameSettings;
 import org.ahicode.core.WorldPositionedObject;
 import org.ahicode.entities.Camera;
 import org.ahicode.entities.Player;
+import org.ahicode.rendering.ShadowSystem;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -14,6 +14,7 @@ public class GameObject extends WorldPositionedObject {
 
     private boolean collision = false;
     private BufferedImage image;
+    private ShadowSystem.ShadowType shadowType;
     private String name;
     private int spriteWidth;
     private int spriteHeight;
@@ -21,11 +22,12 @@ public class GameObject extends WorldPositionedObject {
     private int solidAreaDefaultX;
     private int solidAreaDefaultY;
 
-    public GameObject(int worldX, int worldY, Rectangle solidArea) {
+    public GameObject(int worldX, int worldY, Rectangle solidArea, ShadowSystem.ShadowType shadowType) {
         super(worldX, worldY);
         this.solidArea = solidArea;
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
+        this.shadowType = shadowType;
     }
 
     public void render(Graphics2D graphics2D, Player player, Camera camera) {
@@ -36,6 +38,8 @@ public class GameObject extends WorldPositionedObject {
                     player.getWorldX(),
                     player.getWorldY()
             );
+
+            ShadowSystem.renderShadow(graphics2D, shadowType, screenCoords);
 
             graphics2D.drawImage(
                     image,

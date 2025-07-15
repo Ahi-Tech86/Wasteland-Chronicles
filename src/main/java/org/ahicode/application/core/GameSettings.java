@@ -22,4 +22,7 @@ public class GameSettings {
     // Game states
     public static final int PLAY_STATE = 1;
     public static final int PAUSE_STATE = 2;
+
+    // Alpha value for shadows
+    public static final float SHADOW_ALPHA = 0.3f;
 }

@@ -1,6 +1,7 @@
 package org.ahicode.objects;
 
 import org.ahicode.application.core.GameSettings;
+import org.ahicode.rendering.ShadowSystem;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -63,7 +64,15 @@ public class ObjectsLoader {
                                 int objectHeight = Integer.parseInt(objectElement.getAttribute("height"));
 
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
-                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getSolidArea());
+                                ShadowSystem.ShadowType shadowType = ShadowSystem.ShadowType.NONE;
+
+                                if (bushNames.contains(objectMeta.getName())) {
+                                    shadowType = ShadowSystem.ShadowType.BUSH;
+                                } else if (treeNames.contains(objectMeta.getName())) {
+                                    shadowType = ShadowSystem.ShadowType.TREE;
+                                }
+
+                                GameObject gameObject = new GameObject(objectX, objectY, objectMeta.getSolidArea(), shadowType);
 
                                 if (objectMeta != null) {
                                     gameObject.setImage(objectMeta.getImage());
@@ -220,7 +229,7 @@ public class ObjectsLoader {
                 objectName = propertyValue;
 
                 if (treeNames.contains(objectName)) {
-                    solidArea = new Rectangle(0, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE, GameSettings.TILE_SIZE);
+                    solidArea = new Rectangle(3 * SCALE, GameSettings.TILE_SIZE + 4 * SCALE, GameSettings.TILE_SIZE - 6 * SCALE, GameSettings.TILE_SIZE - 4 * SCALE);
                 }
 
                 if (fenceNames.contains(objectName)) {

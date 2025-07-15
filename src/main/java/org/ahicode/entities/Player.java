@@ -1,9 +1,9 @@
 package org.ahicode.entities;
 
 import org.ahicode.animations.PlayerAnimations;
-import org.ahicode.application.core.GameSettings;
 import org.ahicode.entities.enums.Action;
 import org.ahicode.physics.CollisionCheckable;
+import org.ahicode.rendering.ShadowSystem;
 import org.ahicode.sound.Sound;
 
 import java.awt.*;
@@ -15,8 +15,8 @@ import static org.ahicode.entities.enums.Direction.*;
 public class Player extends GameEntity {
 
     private final CollisionCheckable collisionCheckable;
+    private final ShadowSystem.ShadowType shadowType;
     private final PlayerAnimations animations;
-    private final EntityShadow entityShadow;
     private boolean hasWeapon;
 
     public Player(int x, int y, CollisionCheckable collisionCheckable, Sound soundEffects) {
@@ -28,7 +28,7 @@ public class Player extends GameEntity {
         setHitboxDefaultY(getHitbox().y);
 
         this.collisionCheckable = collisionCheckable;
-        entityShadow = new EntityShadow();
+        shadowType = ShadowSystem.ShadowType.PLAYER;
         animations = new PlayerAnimations(this);
     }
 
@@ -39,7 +39,7 @@ public class Player extends GameEntity {
     }
 
     public void render(Graphics2D graphics2D, int screenX, int screenY) {
-        entityShadow.render(graphics2D, screenX, screenY);
+        ShadowSystem.renderShadow(graphics2D, shadowType, new Point(screenX, screenY));
         animations.render(graphics2D, screenX, screenY, TILE_SIZE, TILE_SIZE);
         //graphics2D.setColor(Color.PINK);
         //graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, (int) getHitbox().getWidth(), (int) getHitbox().getHeight());
