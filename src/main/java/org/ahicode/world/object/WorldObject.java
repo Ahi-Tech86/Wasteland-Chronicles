@@ -13,19 +13,33 @@ import static org.ahicode.core.GameSettings.SCALE;
 public class WorldObject extends WorldPositionedObject {
 
     private final int gid;
-    private boolean collision = false;
-    private ShadowSystem.ShadowType shadowType;
-    private String name;
-    private int spriteWidth;
-    private int spriteHeight;
+    private final boolean collision;
+    private final ShadowSystem.ShadowType shadowType;
+    private final String name;
+    private final int spriteWidth;
+    private final int spriteHeight;
     private final Rectangle solidArea;
     private final int solidAreaDefaultX;
     private final int solidAreaDefaultY;
 
-    public WorldObject(int worldX, int worldY, int gid, Rectangle solidArea, ShadowSystem.ShadowType shadowType) {
+    public WorldObject(
+            int gid,
+            String name,
+            int worldX,
+            int worldY,
+            int spriteWidth,
+            int spriteHeight,
+            boolean collision,
+            Rectangle solidArea,
+            ShadowSystem.ShadowType shadowType
+    ) {
         super(worldX, worldY);
+        this.name = name;
         this.gid = gid;
         this.solidArea = solidArea;
+        this.collision = collision;
+        this.spriteWidth = spriteWidth;
+        this.spriteHeight = spriteHeight;
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
         this.shadowType = shadowType;
@@ -57,32 +71,16 @@ public class WorldObject extends WorldPositionedObject {
         return collision;
     }
 
-    public void setCollision(boolean collision) {
-        this.collision = collision;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public int getSpriteWidth() {
         return spriteWidth;
     }
 
-    public void setSpriteWidth(int spriteWidth) {
-        this.spriteWidth = spriteWidth;
-    }
-
     public int getSpriteHeight() {
         return spriteHeight;
-    }
-
-    public void setSpriteHeight(int spriteHeight) {
-        this.spriteHeight = spriteHeight;
     }
 
     public Rectangle getSolidArea() {

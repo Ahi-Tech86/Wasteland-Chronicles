@@ -7,19 +7,26 @@ import org.ahicode.world.object.WorldObject;
 import org.ahicode.world.object.ObjectsSetter;
 import org.ahicode.world.TileManager;
 
+import java.util.List;
 import java.util.Set;
 
 public class CollisionSystem implements CollisionCheckable {
 
     private final static Set<String> bushNames = Set.of("bush", "bushType1", "bushType2", "bushType3", "bushType4");
-    private final ObjectsSetter objectsSetter;
+    private final ChunkSystem chunkSystem;
     private final TileManager tileManager;
     private final int tileSize;
 
-    public CollisionSystem(TileManager tileManager, ObjectsSetter objectsSetter) {
+    public CollisionSystem(TileManager tileManager, ObjectsSetter objectsSetter, int chunkSize) {
         this.tileSize = GameSettings.TILE_SIZE;
         this.tileManager = tileManager;
-        this.objectsSetter = objectsSetter;
+        this.chunkSystem = new ChunkSystem(chunkSize);
+
+        for (WorldObject object : objectsSetter.getLevelObjects()) {
+            if (object != null) {
+                chunkSystem.addObject(object);
+            }
+        }
     }
 
     @Override
@@ -29,9 +36,15 @@ public class CollisionSystem implements CollisionCheckable {
 
     @Override
     public int checkObject(GameEntity entity, boolean isPlayer) {
+        long startTime = System.nanoTime();
+
         int index = 9999;
 
-        WorldObject[] objects = objectsSetter.getLevelObjects();
+        List<WorldObject> nearByObjects = chunkSystem.getNearByObjects(
+                entity.getWorldX(),
+                entity.getWorldY(),
+                1
+        );
 
         int entityHitboxDefaultX = entity.getHitbox().x;
         int entityHitboxDefaultY = entity.getHitbox().y;
@@ -39,13 +52,14 @@ public class CollisionSystem implements CollisionCheckable {
         entity.getHitbox().x = entity.getWorldX() + entity.getHitbox().x;
         entity.getHitbox().y = entity.getWorldY() + entity.getHitbox().y;
 
-        for (int i = 0; i < objects.length; i++) {
-            if (objects[i] != null && objects[i].isCollision()) {
-                // Get object solid area
-                objects[i].getSolidArea().x = objects[i].getWorldX() + objects[i].getSolidArea().x;
-                objects[i].getSolidArea().y = objects[i].getWorldY() + objects[i].getSolidArea().y;
+        for (int i = 0; i < nearByObjects.size(); i++) {
+            WorldObject object = nearByObjects.get(i);
 
-                if (entity.getHitbox().intersects(objects[i].getSolidArea())) {
+            if (object.isCollision()) {
+                object.getSolidArea().x = object.getWorldX() + object.getSolidArea().x;
+                object.getSolidArea().y = object.getWorldY() + object.getSolidArea().y;
+
+                if (entity.getHitbox().intersects(object.getSolidArea())) {
                     entity.setCollisionOn(true);
 
                     if (isPlayer) {
@@ -53,24 +67,29 @@ public class CollisionSystem implements CollisionCheckable {
                     }
                 }
 
-                objects[i].getSolidArea().x = objects[i].getSolidAreaDefaultX();
-                objects[i].getSolidArea().y = objects[i].getSolidAreaDefaultY();
+                object.getSolidArea().x = object.getSolidAreaDefaultX();
+                object.getSolidArea().y = object.getSolidAreaDefaultY();
 
-            } else if (objects[i] != null && bushNames.contains(objects[i].getName())) {
-                objects[i].getSolidArea().x = objects[i].getWorldX() + objects[i].getSolidArea().x;
-                objects[i].getSolidArea().y = objects[i].getWorldY() + objects[i].getSolidArea().y;
+            } else if (bushNames.contains(object.getName())) {
+                object.getSolidArea().x = object.getWorldX() + object.getSolidArea().x;
+                object.getSolidArea().y = object.getWorldY() + object.getSolidArea().y;
 
-                if (entity.getHitbox().intersects(objects[i].getSolidArea())) {
+                if (entity.getHitbox().intersects(object.getSolidArea())) {
                     entity.playBushSoundEffect();
                 }
 
-                objects[i].getSolidArea().x = objects[i].getSolidAreaDefaultX();
-                objects[i].getSolidArea().y = objects[i].getSolidAreaDefaultY();
+                object.getSolidArea().x = object.getSolidAreaDefaultX();
+                object.getSolidArea().y = object.getSolidAreaDefaultY();
             }
         }
 
         entity.getHitbox().x = entity.getHitboxDefaultX();
         entity.getHitbox().y = entity.getHitboxDefaultY();
+
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime);
+
+        System.out.printf("Collision check: %d objects | Time: %,d ns %n", nearByObjects.size(), duration);
 
         return index;
     }

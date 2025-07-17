@@ -72,14 +72,17 @@ public class ObjectsLoader {
                                     shadowType = ShadowSystem.ShadowType.TREE;
                                 }
 
-                                WorldObject worldObject = new WorldObject(objectX, objectY, objectGid, objectMeta.getSolidArea(), shadowType);
-
-                                if (objectMeta != null) {
-                                    worldObject.setName(objectMeta.getName());
-                                    worldObject.setCollision(objectMeta.isCollision());
-                                    worldObject.setSpriteWidth(objectWidth);
-                                    worldObject.setSpriteHeight(objectHeight);
-                                }
+                                WorldObject worldObject = new WorldObject(
+                                        objectGid,
+                                        objectMeta.getName(),
+                                        objectX,
+                                        objectY,
+                                        objectWidth,
+                                        objectHeight,
+                                        objectMeta.isCollision(),
+                                        objectMeta.getSolidArea(),
+                                        shadowType
+                                );
 
                                 objectList.add(worldObject);
                             }
