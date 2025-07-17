@@ -19,4 +19,8 @@ public class ObjectsSetter {
     public WorldObject[] getLevelObjects() {
         return levelObjects;
     }
+
+    public Map<Integer, ObjectMetadata> getObjectMetadataMap() {
+        return objectMetadataMap;
+    }
 }

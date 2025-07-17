@@ -32,11 +32,25 @@ public class RenderSystem {
             }
         }
 
-        beforePlayer.forEach(obj -> obj.render(graphics2D, game.getPlayer(), game.getCamera()));
+        beforePlayer.forEach(
+                obj -> obj.render(
+                        graphics2D,
+                        game.getPlayer(),
+                        game.getCamera(),
+                        game.getObjectsSetter().getObjectMetadataMap().get(obj.getGid()).getImage()
+                )
+        );
 
         game.getPlayer().render(graphics2D, game.getCamera().getScreenX(), game.getCamera().getScreenY());
 
-        afterPlayer.forEach(obj -> obj.render(graphics2D, game.getPlayer(), game.getCamera()));
+        afterPlayer.forEach(
+                obj -> obj.render(
+                        graphics2D,
+                        game.getPlayer(),
+                        game.getCamera(),
+                        game.getObjectsSetter().getObjectMetadataMap().get(obj.getGid()).getImage()
+                )
+        );
 
         game.getUserInterface().render(graphics2D);
     }

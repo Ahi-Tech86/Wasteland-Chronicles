@@ -12,25 +12,26 @@ import static org.ahicode.core.GameSettings.SCALE;
 
 public class WorldObject extends WorldPositionedObject {
 
+    private final int gid;
     private boolean collision = false;
-    private BufferedImage image;
     private ShadowSystem.ShadowType shadowType;
     private String name;
     private int spriteWidth;
     private int spriteHeight;
     private final Rectangle solidArea;
-    private int solidAreaDefaultX;
-    private int solidAreaDefaultY;
+    private final int solidAreaDefaultX;
+    private final int solidAreaDefaultY;
 
-    public WorldObject(int worldX, int worldY, Rectangle solidArea, ShadowSystem.ShadowType shadowType) {
+    public WorldObject(int worldX, int worldY, int gid, Rectangle solidArea, ShadowSystem.ShadowType shadowType) {
         super(worldX, worldY);
+        this.gid = gid;
         this.solidArea = solidArea;
         this.solidAreaDefaultX = solidArea.x;
         this.solidAreaDefaultY = solidArea.y;
         this.shadowType = shadowType;
     }
 
-    public void render(Graphics2D graphics2D, Player player, Camera camera) {
+    public void render(Graphics2D graphics2D, Player player, Camera camera, BufferedImage image) {
         if (camera.isVisible(getWorldX(), getWorldY(), player.getWorldX(), player.getWorldY())) {
             Point screenCoords = camera.worldCoordsToScreen(
                     getWorldX(),
@@ -60,16 +61,8 @@ public class WorldObject extends WorldPositionedObject {
         this.collision = collision;
     }
 
-    public BufferedImage getImage() {
-        return image;
-    }
-
     public String getName() {
         return name;
-    }
-
-    public void setImage(BufferedImage image) {
-        this.image = image;
     }
 
     public void setName(String name) {
@@ -100,15 +93,11 @@ public class WorldObject extends WorldPositionedObject {
         return solidAreaDefaultX;
     }
 
-    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
-        this.solidAreaDefaultX = solidAreaDefaultX;
-    }
-
     public int getSolidAreaDefaultY() {
         return solidAreaDefaultY;
     }
 
-    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
-        this.solidAreaDefaultY = solidAreaDefaultY;
+    public int getGid() {
+        return gid;
     }
 }

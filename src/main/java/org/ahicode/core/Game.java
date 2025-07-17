@@ -30,6 +30,7 @@ public class Game implements Runnable {
     private final int maxWorldCol = 50;
     private final int maxWorldRow = 50;
 
+    private final ObjectsSetter objectsSetter;
     private final RenderSystem renderSystem;
     private final UserInterface userInterface;
     private final Sound soundEffects;
@@ -38,11 +39,10 @@ public class Game implements Runnable {
     private final Camera camera;
 
     public Game() {
-
         soundEffects = new AudioManager();
         renderSystem = new RenderSystem(this);
         tileManager = new TileManager(maxWorldCol, maxWorldRow);
-        ObjectsSetter objectsSetter = new ObjectsSetter();
+        objectsSetter = new ObjectsSetter();
         CollisionCheckable collisionCheckable = new CollisionSystem(tileManager, objectsSetter);
 
         player = new Player(11 * TILE_SIZE, 11 * TILE_SIZE, collisionCheckable, getSoundEffects());
@@ -140,5 +140,9 @@ public class Game implements Runnable {
 
     public UserInterface getUserInterface() {
         return userInterface;
+    }
+
+    public ObjectsSetter getObjectsSetter() {
+        return objectsSetter;
     }
 }
