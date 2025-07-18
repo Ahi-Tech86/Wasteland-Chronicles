@@ -1,5 +1,6 @@
 package org.ahicode.world.object;
 
+import lombok.Getter;
 import org.ahicode.core.WorldPositionedObject;
 import org.ahicode.entity.Camera;
 import org.ahicode.entity.Player;
@@ -10,6 +11,7 @@ import java.awt.image.BufferedImage;
 
 import static org.ahicode.core.GameSettings.SCALE;
 
+@Getter
 public class WorldObject extends WorldPositionedObject {
 
     private final int gid;
@@ -65,37 +67,5 @@ public class WorldObject extends WorldPositionedObject {
                     null
             );
         }
-    }
-
-    public boolean isCollision() {
-        return collision;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getSpriteWidth() {
-        return spriteWidth;
-    }
-
-    public int getSpriteHeight() {
-        return spriteHeight;
-    }
-
-    public Rectangle getSolidArea() {
-        return solidArea;
-    }
-
-    public int getSolidAreaDefaultX() {
-        return solidAreaDefaultX;
-    }
-
-    public int getSolidAreaDefaultY() {
-        return solidAreaDefaultY;
-    }
-
-    public int getGid() {
-        return gid;
     }
 }

@@ -1,9 +1,11 @@
 package org.ahicode.entity;
 
+import lombok.Getter;
 import org.ahicode.core.GameSettings;
 
 import java.awt.*;
 
+@Getter
 public class Camera {
 
     private final int screenX, screenY;
@@ -11,14 +13,6 @@ public class Camera {
     public Camera(int screenWidth, int screenHeight) {
         this.screenX = screenWidth / 2 - (GameSettings.TILE_SIZE / 2);
         this.screenY = screenHeight / 2 - (GameSettings.TILE_SIZE / 2);
-    }
-
-    public int getScreenX() {
-        return screenX;
-    }
-
-    public int getScreenY() {
-        return screenY;
     }
 
     public Point worldCoordsToScreen(int worldX, int worldY, int playerWorldX, int playerWorldY) {

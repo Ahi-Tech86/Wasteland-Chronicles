@@ -106,8 +106,4 @@ public class Player extends GameEntity {
             setCollisionOn(false);
         }
     }
-
-    public void setHasWeapon(boolean hasWeapon) {
-        this.hasWeapon = hasWeapon;
-    }
 }

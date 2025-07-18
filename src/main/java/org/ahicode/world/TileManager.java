@@ -1,5 +1,6 @@
 package org.ahicode.world;
 
+import lombok.Getter;
 import org.ahicode.core.GameSettings;
 import org.ahicode.entity.Camera;
 import org.ahicode.entity.Player;
@@ -9,7 +10,9 @@ import java.awt.*;
 public class TileManager {
 
     private final int tileSize, maxWorldCol, maxWorldRow;
+    @Getter
     private final int[][] tileMapNum;
+    @Getter
     private final Tile[] tiles;
 
     public TileManager(int maxWorldCol, int maxWorldRow) {
@@ -63,13 +66,5 @@ public class TileManager {
                 );
             }
         }
-    }
-
-    public int[][] getTileMapNum() {
-        return tileMapNum;
-    }
-
-    public Tile[] getTiles() {
-        return tiles;
     }
 }

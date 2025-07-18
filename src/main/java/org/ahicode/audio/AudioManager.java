@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class AudioManager implements Sound {
 
@@ -58,7 +59,7 @@ public class AudioManager implements Sound {
 
             try (
                     InputStream inputStream = getClass().getResourceAsStream(soundResourcePath);
-                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(inputStream)
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(Objects.requireNonNull(inputStream))
             ) {
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioStream);

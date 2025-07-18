@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.awt.image.BufferedImage;
 import java.io.*;
+import java.util.Objects;
 
 public class TileLoader {
     private static final byte TILED_ID_OFFSET = 1;
@@ -71,7 +72,7 @@ public class TileLoader {
         Element imageElement = (Element) tileset.getElementsByTagName("image").item(0);
         String imagePath = imageElement.getAttribute("source").replace("../tileset/", "/tileset/");
         InputStream is = TileLoader.class.getResourceAsStream(imagePath);
-        return ImageIO.read(is);
+        return ImageIO.read(Objects.requireNonNull(is));
     }
 
     private static int[][] processTilemapLayer(Element layer, int maxCol, int maxRow) {

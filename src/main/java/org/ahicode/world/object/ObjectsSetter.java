@@ -1,26 +1,17 @@
 package org.ahicode.world.object;
 
-import org.ahicode.core.GameSettings;
+import lombok.Getter;
 
 import java.util.Map;
 
+@Getter
 public class ObjectsSetter {
 
-    private Map<Integer, ObjectMetadata> objectMetadataMap;
-    private WorldObject[] levelObjects;
-    private final int tileSize;
+    private final Map<Integer, ObjectMetadata> objectMetadataMap;
+    private final WorldObject[] levelObjects;
 
     public ObjectsSetter() {
-        this.tileSize = GameSettings.TILE_SIZE;
         objectMetadataMap = ObjectsLoader.getObjectsMetadata();
         levelObjects = ObjectsLoader.loadObjects(objectMetadataMap);
-    }
-
-    public WorldObject[] getLevelObjects() {
-        return levelObjects;
-    }
-
-    public Map<Integer, ObjectMetadata> getObjectMetadataMap() {
-        return objectMetadataMap;
     }
 }

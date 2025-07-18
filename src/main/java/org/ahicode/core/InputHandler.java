@@ -31,8 +31,8 @@ public class InputHandler implements KeyListener {
                 case VK_P -> gamePanel.getGame().setGameState(GameSettings.PAUSE_STATE);
             }
         } else if (gamePanel.getGame().getGameState() == GameSettings.PAUSE_STATE) {
-            switch (e.getKeyCode()) {
-                case VK_P -> gamePanel.getGame().setGameState(GameSettings.PLAY_STATE);
+            if (e.getKeyCode() == VK_P) {
+                gamePanel.getGame().setGameState(GameSettings.PLAY_STATE);
             }
         }
 

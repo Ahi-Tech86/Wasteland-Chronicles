@@ -66,21 +66,21 @@ public class ObjectsLoader {
                                 ObjectMetadata objectMeta = objectMetadataMap.get(objectGid);
                                 ShadowSystem.ShadowType shadowType = ShadowSystem.ShadowType.NONE;
 
-                                if (bushNames.contains(objectMeta.getName())) {
+                                if (bushNames.contains(objectMeta.name())) {
                                     shadowType = ShadowSystem.ShadowType.BUSH;
-                                } else if (treeNames.contains(objectMeta.getName())) {
+                                } else if (treeNames.contains(objectMeta.name())) {
                                     shadowType = ShadowSystem.ShadowType.TREE;
                                 }
 
                                 WorldObject worldObject = new WorldObject(
                                         objectGid,
-                                        objectMeta.getName(),
+                                        objectMeta.name(),
                                         objectX,
                                         objectY,
                                         objectWidth,
                                         objectHeight,
-                                        objectMeta.isCollision(),
-                                        objectMeta.getSolidArea(),
+                                        objectMeta.collision(),
+                                        objectMeta.solidArea(),
                                         shadowType
                                 );
 

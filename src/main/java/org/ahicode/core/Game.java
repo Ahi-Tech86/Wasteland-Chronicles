@@ -1,5 +1,7 @@
 package org.ahicode.core;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.ahicode.graphics.ui.GamePanel;
 import org.ahicode.graphics.ui.GameWindow;
 import org.ahicode.graphics.ui.UserInterface;
@@ -18,6 +20,8 @@ import java.awt.*;
 
 import static org.ahicode.core.GameSettings.*;
 
+@Getter
+@Setter
 public class Game implements Runnable {
 
     private int gameState;
@@ -108,41 +112,5 @@ public class Game implements Runnable {
                 updates = 0;
             }
         }
-    }
-
-    public Player getPlayer() {
-        return player;
-    }
-
-    public Camera getCamera() {
-        return camera;
-    }
-
-    public Sound getSoundEffects() {
-        return soundEffects;
-    }
-
-    public void setGameState(int gameState) {
-        this.gameState = gameState;
-    }
-
-    public int getGameState() {
-        return gameState;
-    }
-
-    public TileManager getTileManager() {
-        return tileManager;
-    }
-
-    public WorldObject[] getGameObjectsList() {
-        return worldObjectsList;
-    }
-
-    public UserInterface getUserInterface() {
-        return userInterface;
-    }
-
-    public ObjectsSetter getObjectsSetter() {
-        return objectsSetter;
     }
 }

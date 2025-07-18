@@ -1,7 +1,10 @@
 package org.ahicode.world;
 
+import lombok.Getter;
+
 import java.awt.image.BufferedImage;
 
+@Getter
 public class Tile {
 
     private final BufferedImage image;
@@ -15,13 +18,5 @@ public class Tile {
     public Tile(BufferedImage image) {
         this.image = image;
         this.collision = false;
-    }
-
-    public BufferedImage getImage() {
-        return image;
-    }
-
-    public boolean isCollision() {
-        return collision;
     }
 }

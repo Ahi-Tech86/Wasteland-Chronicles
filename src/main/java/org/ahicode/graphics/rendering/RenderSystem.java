@@ -22,7 +22,7 @@ public class RenderSystem {
         List<WorldObject> beforePlayer = new ArrayList<>();
         List<WorldObject> afterPlayer = new ArrayList<>();
 
-        for (WorldObject object : game.getGameObjectsList()) {
+        for (WorldObject object : game.getWorldObjectsList()) {
             if (object != null) {
                 if (object.getWorldY() + object.getSpriteHeight() < game.getPlayer().getWorldY()) {
                     beforePlayer.add(object);
@@ -37,7 +37,7 @@ public class RenderSystem {
                         graphics2D,
                         game.getPlayer(),
                         game.getCamera(),
-                        game.getObjectsSetter().getObjectMetadataMap().get(obj.getGid()).getImage()
+                        game.getObjectsSetter().getObjectMetadataMap().get(obj.getGid()).image()
                 )
         );
 
@@ -48,7 +48,7 @@ public class RenderSystem {
                         graphics2D,
                         game.getPlayer(),
                         game.getCamera(),
-                        game.getObjectsSetter().getObjectMetadataMap().get(obj.getGid()).getImage()
+                        game.getObjectsSetter().getObjectMetadataMap().get(obj.getGid()).image()
                 )
         );
 

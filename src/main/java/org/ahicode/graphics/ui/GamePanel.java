@@ -1,5 +1,6 @@
 package org.ahicode.graphics.ui;
 
+import lombok.Getter;
 import org.ahicode.core.Game;
 import org.ahicode.core.InputHandler;
 
@@ -8,6 +9,7 @@ import java.awt.*;
 
 import static org.ahicode.core.GameSettings.*;
 
+@Getter
 public class GamePanel extends JPanel {
 
     private final Game game;
@@ -29,9 +31,5 @@ public class GamePanel extends JPanel {
         graphics2D.fillRect(0, 0, getWidth(), getHeight());
 
         game.render(graphics2D);
-    }
-
-    public Game getGame() {
-        return game;
     }
 }

@@ -1,5 +1,6 @@
 package org.ahicode.graphics.animation;
 
+import lombok.Getter;
 import org.ahicode.entity.GameEntity;
 
 import java.awt.*;
@@ -11,6 +12,7 @@ public class AnimationController {
     private final Map<AnimationKey, BufferedImage[]> fullAnimations;
     private BufferedImage[] currentAnimation;
     private final GameEntity gameEntity;
+    @Getter
     private AnimationKey currentKey;
     private final int animSpeed;
     private int animTick;
@@ -54,9 +56,5 @@ public class AnimationController {
     private void resetAnimTick() {
         animTick = 0;
         animIndex = 0;
-    }
-
-    public AnimationKey getCurrentKey() {
-        return currentKey;
     }
 }
