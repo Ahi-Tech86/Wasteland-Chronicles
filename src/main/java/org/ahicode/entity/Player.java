@@ -17,12 +17,10 @@ public class Player extends GameEntity {
     private final CollisionCheckable collisionCheckable;
     private final ShadowSystem.ShadowType shadowType;
     private final CharacterAnimations animations;
-    private boolean hasWeapon;
 
     public Player(int x, int y, CollisionCheckable collisionCheckable, Sound soundEffects) {
         super(x, y, soundEffects);
         setSpeed(2);
-        hasWeapon = false;
         setHitbox(new Rectangle(4 * SCALE, 5 * SCALE, 8 * SCALE, 11 * SCALE));
         setHitboxDefaultX(getHitbox().x);
         setHitboxDefaultY(getHitbox().y);
@@ -46,8 +44,8 @@ public class Player extends GameEntity {
     }
 
     private void setAnimation() {
-        Action bodyAction = this.isMoving() ? RUNNING : IDLE;
-        Action handsAction = hasWeapon ? SHOTGUN_HOLD : (this.isMoving() ? RUNNING : IDLE);
+        Action bodyAction = this.isMoving() ? RUN : IDLE;
+        Action handsAction = this.isMoving() ? RUN : IDLE;
         animations.setAction(bodyAction, handsAction, getCurrentDirection());
     }
 

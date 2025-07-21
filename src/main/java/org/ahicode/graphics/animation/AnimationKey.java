@@ -6,8 +6,8 @@ import org.ahicode.entity.enums.Action;
 
 import java.util.Objects;
 
+@Getter
 public class AnimationKey {
-    @Getter
     private final Action action;
     private final Direction direction;
 

@@ -9,7 +9,7 @@ import java.awt.image.BufferedImage;
 public class ShadowSystem {
 
     private static final BufferedImage TREE_BUSH_SHADOW = applyAlpha(SpriteManager.getImage("/environment/TreeShadow.png"));
-    private static final BufferedImage PLAYER_SHADOW = applyAlpha(SpriteManager.getImage("/character/CharacterShadow.png"));
+    private static final BufferedImage PLAYER_SHADOW = applyAlpha(SpriteManager.getImage("/old_assets/character/CharacterShadow.png"));
 
     public enum ShadowType {
         BUSH(14, 5, TREE_BUSH_SHADOW, 1, 13),

@@ -7,6 +7,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.Map;
 
+import static org.ahicode.core.GameSettings.*;
+
 public class AnimationController {
 
     private final Map<AnimationKey, BufferedImage[]> fullAnimations;
@@ -40,9 +42,12 @@ public class AnimationController {
         }
     }
 
-    public void render(Graphics graphics, float x, float y, int width, int height) {
+    public void render(Graphics graphics, float x, float y) {
+        int spriteHeight = currentAnimation[animIndex].getHeight();
+        int spriteWidth = currentAnimation[animIndex].getWidth();
+
         if (animIndex < currentAnimation.length) {
-            graphics.drawImage(currentAnimation[animIndex], (int) x, (int) y, width, height, null);
+            graphics.drawImage(currentAnimation[animIndex], (int) x, (int) y, spriteWidth * SCALE, spriteHeight * SCALE, null);
         }
     }
 

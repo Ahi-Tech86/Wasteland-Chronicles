@@ -18,6 +18,18 @@ public class SpriteManager {
         return scaledImage;
     }
 
+    public static BufferedImage flipImageHorizontally(BufferedImage original) {
+        int width = original.getWidth();
+        int height = original.getHeight();
+
+        BufferedImage flipped = new BufferedImage(width, height, original.getType());
+        Graphics2D graphics2D = flipped.createGraphics();
+        graphics2D.drawImage(original, width, 0, -width, height, null);
+        graphics2D.dispose();
+
+        return flipped;
+    }
+
     public static BufferedImage getImage(String path) {
         try {
             return ImageIO.read(Objects.requireNonNull(SpriteManager.class.getResourceAsStream(path)));
