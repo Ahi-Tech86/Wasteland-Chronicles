@@ -10,11 +10,13 @@ public class ShadowSystem {
 
     private static final BufferedImage TREE_BUSH_SHADOW = applyAlpha(SpriteManager.getImage("/environment/TreeShadow.png"));
     private static final BufferedImage PLAYER_SHADOW = applyAlpha(SpriteManager.getImage("/old_assets/character/CharacterShadow.png"));
+    private static final BufferedImage PLAYER_SHADOW_11 = applyAlpha(SpriteManager.getImage("/character/shadow/CharacterShadow.png"));
 
     public enum ShadowType {
         BUSH(14, 5, TREE_BUSH_SHADOW, 1, 13),
         TREE(14, 5, TREE_BUSH_SHADOW, 1, GameSettings.ORIGINAL_TILE_SIZE * 2 - 3),
-        PLAYER(12, 5, PLAYER_SHADOW, 2, 12),
+        LEGACY_PLAYER(12, 5, PLAYER_SHADOW, 2, 12),
+        PLAYER(11, 5, PLAYER_SHADOW_11, 2, 12),
         NONE(0, 0, null, 0, 0);
 
         final int width;

@@ -11,8 +11,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class GraphicsLoader {
-    private static final String characterBase = "/old_assets/character/PlayerBase.png";
-    private static final String characterHands = "/old_assets/character/PlayerHands.png";
 
     public static class PlayerAnimationsLoader {
 
@@ -225,6 +223,7 @@ public class GraphicsLoader {
         }
 
         public static Map<AnimationKey, BufferedImage[]> loadLegacyPlayerBodyAnimations() {
+            String characterBase = "/old_assets/character/PlayerBase.png";
             Map<AnimationKey, BufferedImage[]> animations = new HashMap<>();
 
             BufferedImage[] idleLeftFrames = SpriteManager.loadFramesFromSheet(
@@ -322,6 +321,7 @@ public class GraphicsLoader {
 
         public static Map<AnimationKey, BufferedImage[]> loadLegacyPlayerHandsAnimations() {
             Map<AnimationKey, BufferedImage[]> animations = new HashMap<>();
+            String characterHands = "/old_assets/character/PlayerHands.png";
 
             BufferedImage[] idleLeftFrames = SpriteManager.loadFramesFromSheet(
                     characterHands,

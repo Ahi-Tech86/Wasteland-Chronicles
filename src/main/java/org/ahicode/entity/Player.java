@@ -1,5 +1,6 @@
 package org.ahicode.entity;
 
+import lombok.Getter;
 import org.ahicode.graphics.animation.CharacterAnimations;
 import org.ahicode.entity.enums.Action;
 import org.ahicode.physics.CollisionCheckable;
@@ -15,6 +16,7 @@ import static org.ahicode.entity.enums.Direction.*;
 public class Player extends GameEntity {
 
     private final CollisionCheckable collisionCheckable;
+    @Getter
     private final ShadowSystem.ShadowType shadowType;
     private final CharacterAnimations animations;
 
@@ -37,10 +39,10 @@ public class Player extends GameEntity {
     }
 
     public void render(Graphics2D graphics2D, int screenX, int screenY) {
-        ShadowSystem.renderShadow(graphics2D, shadowType, new Point(screenX, screenY));
         animations.render(graphics2D, screenX, screenY);
+
         //graphics2D.setColor(Color.PINK);
-        //graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, (int) getHitbox().getWidth(), (int) getHitbox().getHeight());
+        //graphics2D.drawRect(screenX, screenY, (int) TILE_SIZE, (int) TILE_SIZE);
     }
 
     private void setAnimation() {
