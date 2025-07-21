@@ -13,7 +13,6 @@ import java.util.Map;
 public class GraphicsLoader {
     private static final String characterBase = "/old_assets/character/PlayerBase.png";
     private static final String characterHands = "/old_assets/character/PlayerHands.png";
-    private static final String shotgunHands = "/old_assets/character/Shotgun.png";
 
     public static class PlayerAnimationsLoader {
 
@@ -404,9 +403,6 @@ public class GraphicsLoader {
                     4
             );
 
-            BufferedImage[] shotgunHoldFrames = new BufferedImage[1];
-            shotgunHoldFrames[0] = SpriteManager.extractFromSheet(shotgunHands, 144, 16, 32, 16);
-
             animations.put(new AnimationKey(Action.IDLE, Direction.LEFT), idleLeftFrames);
             animations.put(new AnimationKey(Action.IDLE, Direction.RIGHT), idleRightFrames);
             animations.put(new AnimationKey(Action.IDLE, Direction.UP), idleUpFrames);
@@ -458,6 +454,160 @@ public class GraphicsLoader {
             );
             BufferedImage[] rightDeath = SpriteManager.loadFramesFromSheet(
                     AnimationsPaths.WeaponPath.BAT.rightDeath, 18, 13, 0, 0, 6, 6
+            );
+
+            return animations;
+        }
+
+        public static Map<AnimationKey, BufferedImage[]> loadPistolAnimations() {
+            Map<AnimationKey, BufferedImage[]> animations = new HashMap<>();
+
+            BufferedImage[] upIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.upIdleAndRun, 5, 11, 0, 0, 6, 6
+            );
+            BufferedImage[] upReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.upReload, 19, 19, 0, 0, 11, 11
+            );
+            BufferedImage[] upShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.upShoot, 5, 11, 0, 0, 3, 3
+            );
+
+            BufferedImage[] downIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.downIdleAndRun, 5, 11, 0, 0, 6, 6
+            );
+            BufferedImage[] downReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.downReload, 19, 12, 0, 0, 11, 11
+            );
+            BufferedImage[] downShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.downShoot, 5, 11, 0, 0, 3, 3
+            );
+
+            BufferedImage[] leftIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.leftIdleAndRun, 8, 9, 0, 0, 6, 6
+            );
+            BufferedImage[] leftReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.leftReload, 12, 13, 0, 0, 11, 11
+            );
+            BufferedImage[] leftShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.leftShoot, 10, 8, 0, 0, 3, 3
+            );
+            BufferedImage[] leftDeath = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.leftDeath, 13, 9, 0, 0, 6, 6
+            );
+
+            BufferedImage[] rightIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.rightIdleAndRun, 8, 9, 0, 0, 6, 6
+            );
+            BufferedImage[] rightReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.rightReload, 12, 13, 0, 0, 11, 11
+            );
+            BufferedImage[] rightShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.rightShoot, 10, 8, 0, 0, 3, 3
+            );
+            BufferedImage[] rightDeath = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.PISTOL.rightDeath, 13, 9, 0, 0, 6, 6
+            );
+
+            return animations;
+        }
+
+        public static Map<AnimationKey, BufferedImage[]> loadRifleAnimations() {
+            Map<AnimationKey, BufferedImage[]> animations = new HashMap<>();
+
+            BufferedImage[] upIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.upIdleAndRun, 5, 16, 0, 0, 6, 6
+            );
+            BufferedImage[] upReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.upReload, 22, 19, 0, 0, 8, 8
+            );
+            BufferedImage[] upShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.upShoot, 5, 17, 0, 0, 3, 3
+            );
+
+            BufferedImage[] downIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.downIdleAndRun, 5, 16, 0, 0, 6, 6
+            );
+            BufferedImage[] downReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.downReload, 16, 15, 0, 0, 8, 8
+            );
+            BufferedImage[] downShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.downShoot, 5, 17, 0, 0, 3, 3
+            );
+
+            BufferedImage[] leftIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.leftIdleAndRun, 16, 10, 0, 0, 6, 6
+            );
+            BufferedImage[] leftReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.leftReload, 20, 11, 0, 0, 8, 8
+            );
+            BufferedImage[] leftShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.leftShoot, 18, 10, 0, 0, 3, 3
+            );
+            BufferedImage[] leftDeath = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.leftDeath, 18, 10, 0, 0, 6, 6
+            );
+
+            BufferedImage[] rightIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.rightIdleAndRun, 16, 10, 0, 0, 6, 6
+            );
+            BufferedImage[] rightReload = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.rightReload, 20, 11, 0, 0, 8, 8
+            );
+            BufferedImage[] rightShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.rightShoot, 18, 10, 0, 0, 3, 3
+            );
+            BufferedImage[] rightDeath = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.RIFLE.rightDeath, 18, 10, 0, 0, 6, 6
+            );
+
+            return animations;
+        }
+
+        public static Map<AnimationKey, BufferedImage[]> loadShotgunAnimations() {
+            Map<AnimationKey, BufferedImage[]> animations = new HashMap<>();
+
+            BufferedImage[] upReloadType1 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upReloadType1, 15, 16, 0, 0, 9, 9
+            );
+            BufferedImage[] upReloadType2 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upReloadType2, 15, 16, 0, 0, 12, 12
+            );
+            BufferedImage[] upReloadType3 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upReloadType3, 15, 16, 0, 0, 15, 15
+            );
+            BufferedImage[] upReloadType4 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upReloadType4, 15, 16, 0, 0, 18, 18
+            );
+            BufferedImage[] upIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upIdleAndRun, 6, 16, 0, 0, 6, 6
+            );
+            BufferedImage[] upRacking = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upRacking, 6, 16, 0, 0, 2, 2
+            );
+            BufferedImage[] upShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.upShoot, 6, 17, 0, 0, 3, 3
+            );
+
+            BufferedImage[] downReloadType1 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downReloadType1, 12, 17, 0, 0, 9, 9
+            );
+            BufferedImage[] downReloadType2 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downReloadType2, 12, 17, 0, 0, 12, 12
+            );
+            BufferedImage[] downReloadType3 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downReloadType3, 12, 17, 0, 0, 15, 15
+            );
+            BufferedImage[] downReloadType4 = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downReloadType4, 12, 17, 0, 0, 18, 18
+            );
+            BufferedImage[] downIdleAndRun = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downIdleAndRun, 6, 14, 0, 0, 6, 6
+            );
+            BufferedImage[] downRacking = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downRacking, 6, 14, 0, 0, 2, 2
+            );
+            BufferedImage[] downShoot = SpriteManager.loadFramesFromSheet(
+                    AnimationsPaths.WeaponPath.SHOTGUN.downShoot, 6, 15, 0, 0, 3, 3
             );
 
             return animations;

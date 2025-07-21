@@ -38,7 +38,7 @@ public class Player extends GameEntity {
 
     public void render(Graphics2D graphics2D, int screenX, int screenY) {
         ShadowSystem.renderShadow(graphics2D, shadowType, new Point(screenX, screenY));
-        animations.render(graphics2D, screenX, screenY, TILE_SIZE, TILE_SIZE);
+        animations.render(graphics2D, screenX, screenY);
         //graphics2D.setColor(Color.PINK);
         //graphics2D.drawRect(screenX + getHitbox().x, screenY + getHitbox().y, (int) getHitbox().getWidth(), (int) getHitbox().getHeight());
     }

@@ -23,7 +23,7 @@ public class CharacterAnimations {
         hands.update();
     }
 
-    public void render(Graphics2D graphics2D, int x, int y, int width, int height) {
+    public void render(Graphics2D graphics2D, int x, int y) {
         body.render(graphics2D, x, y);
 
         if (hands.getCurrentKey().getAction().equals(Action.IDLE) && hands.getCurrentKey().getDirection().equals(Direction.UP)) {
